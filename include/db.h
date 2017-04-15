@@ -3,4 +3,18 @@
 
 // ...
 
+typedef struct	s_schema
+{
+	// ...
+}				t_schema;
+
+typedef struct	s_table
+{
+	t_schema	schema;
+
+	// ...
+}				t_table;
+
+// ...
+
 #endif
