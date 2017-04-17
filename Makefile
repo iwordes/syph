@@ -1,9 +1,14 @@
-NAME  = ft_db
+NAME  = syph
 
-#
+CC    = gcc
+CF   += -Wall -Wextra -Werror
+
+SRC   = main.c
+
+# -----------------------------------------------------------------------------
 
 .PHONY: all
-all: ft_db
+all: $(NAME)
 
 .PHONY: clean
 clean:
