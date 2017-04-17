@@ -1,5 +1,5 @@
-#ifndef DB_H
-# define DB_H
+#ifndef SYPH_H
+# define SYPH_H
 
 // ...
 
