@@ -3,14 +3,22 @@
 
 // ...
 
-typedef struct	s_schema
+typedef struct	s_field
 {
-	// ...
-}				t_schema;
+	uint8_t		id;
+	uint8_t		type;
+
+	uint16_t	f_id: 1;
+	uint16_t	f_null: 1;
+	uint16_t	f_unique: 1;
+
+	char		*name;
+}				t_field;
 
 typedef struct	s_table
 {
-	t_schema	schema;
+	uint32_t	id;
+	t_field		*schema;
 
 	// ...
 }				t_table;
