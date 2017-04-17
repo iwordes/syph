@@ -11,12 +11,14 @@
  --- | Floating-point.
   10 | f32
   11 | f64
- --- | Binary.
-  20 | byte
- --- | Strings.
-  30 | str
-  3? | utf8
  --- | Timestamps.
-  40 | Date YYYY-MM-DD
-  41 | Datetime YYYY-MM-DD HH:MM:SS
- --- |
+ --- | Arrays
+  80 | u8[]
+  81 | u16[]
+  82 | u32[]
+  83 | u64[]
+  84 | i8[]
+  85 | i16[]
+  86 | i32[]
+  87 | i64[]
+ --- | Reserved

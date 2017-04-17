@@ -1,16 +1,16 @@
 # Create table
 ??
 
-# u32: id
+# u32 (id)
 ?? ??
 
-# str[8]: unique
+# str[8] (unique)
 ?? { 00 00 00 08 } ??
 
-# str[32]: no flags
+# str[32] (no flags)
 ?? { 00 00 00 ?? } 00
 
-# End Request
+# End header
 00
 
 # Schema name
