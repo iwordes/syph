@@ -1,4 +1,4 @@
-NAME  = syph
+NAME  = syphd
 
 CC    = gcc
 CF   += -Wall -Wextra -Werror
@@ -23,6 +23,6 @@ re: fclean all
 
 #
 
-$(NAME): include/db.h $(SRC)
+$(NAME): include/syph.h $(SRC)
 	$(CC) $(CF) -o $@ $(SRC)
 
