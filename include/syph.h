@@ -23,6 +23,16 @@ typedef struct	s_table
 	// ...
 }				t_table;
 
+typedef struct	s_db
+{
+	char		*loc;
+	int			fd;
+
+	// ...
+}				t_db;
+
+// Are request/response types even necessary on the server side?
+
 typedef struct	s_req
 {
 	// ...
