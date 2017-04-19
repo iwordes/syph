@@ -1,8 +1,12 @@
 NAME    = syphd
 VERSION = 0.1.0
 
-CC    = gcc
-CF   += -Wall -Wextra -Werror
+LIBS   := arg
+
+CC      = gcc
+CF     += -Wall -Wextra -Werror
+CF     += -I include
+CF     += $(foreach lib,$(LIBS),-I lib/$(lib)/include -L lib/$(lib) -l$(lib))
 
 include src.mk
 
