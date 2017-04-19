@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:33:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/19 10:43:05 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/19 11:30:33 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_arg	g_arg[] = {
 	{ "daemon", arg_daemon, 0 },
 	{ "home", arg_home, 1 },
+	{ "port", arg_port, 1 },
 	{ "v", arg_verbose, 0 },
 	{ NULL, NULL, 0 }
 };
