@@ -7,12 +7,14 @@ Rough overview:
 
 Database Header
 ---------------
-1. Reserved
+1. u8 endian order (0x00 little or 0xff big)
+2. Reserved
 
 Table Header
 ------------
 1. u32 table ID
 2. u8 field count
-2. u8[2][] field [ type, flags ]
+3. u8[2][] field [ type, flags ]
 4. i8[32][] field names
 5. Reserved
+?. u32 entry size?
