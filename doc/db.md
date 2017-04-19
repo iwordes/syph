@@ -8,13 +8,14 @@ Rough overview:
 Database Header
 ---------------
 1. u8 endian order (0x00 little or 0xff big)
-2. Reserved
+2. u32 last table id
+3. Table index [ u32 id, u32 block offset ]
 
 Table Header
 ------------
 1. u32 table ID
 2. u8 field count
-3. u8[2][] field [ type, flags ]
-4. i8[32][] field names
+3. fields [ u8:type, u8:flags, i8[30]:label ]
+4. u32 entry count
 5. Reserved
 ?. u32 entry size?
