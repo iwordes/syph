@@ -12,8 +12,8 @@
  --- | Floating-point
   10 | f32
   11 | f64
- --- | Timestamps
-  2X | Reserved
+ --- | Timestamps (future)
+  20 | [ u16:YYYY, u8:MM, u8:DD, u8:hh, u8:mm, u8:ss ]
  --- | Arrays
   80 | u8[]
   81 | u16[]
@@ -23,5 +23,3 @@
   85 | i16[]
   86 | i32[]
   87 | i64[]
- --- | ???
-  9X | Reserved

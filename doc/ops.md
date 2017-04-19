@@ -4,7 +4,6 @@
  --- | Database operations.
   10 | List databases.
   11 | Create database.
-  1? | Select database.
   1f | Delete database.
  --- | Table operations.
   20 | List tables.
