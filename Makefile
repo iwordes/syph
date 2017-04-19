@@ -1,11 +1,12 @@
-NAME  = syphd
+NAME    = syphd
+VERSION = 0.1.0
 
 CC    = gcc
 CF   += -Wall -Wextra -Werror
 
-SRC   = main.c
+include src.mk
 
-# -----------------------------------------------------------------------------
+# ==============================================================================
 
 .PHONY: all
 all: $(NAME)
@@ -21,8 +22,7 @@ fclean: clean
 .PHONY: re
 re: fclean all
 
-#
+# ==============================================================================
 
-$(NAME): include/syph.h $(SRC)
+$(NAME): $(SRC)
 	$(CC) $(CF) -o $@ $(SRC)
-
