@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/19 13:57:48 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/19 14:08:58 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ typedef struct	s_table
 	uint8_t		field_cnt;
 	t_field		*field;
 
+
 }				t_table;
 
 typedef struct	s_db
 {
-	char		*label;
+	uint32_t	table_cnt;
+	t_table		*table;
 
 	int			fd;
 	int			jnl;
@@ -57,6 +59,7 @@ typedef struct	s_db
 typedef struct	s_main
 {
 	// ...
+	t_db		*db;
 
 	bool		daemon;
 	bool		v;
