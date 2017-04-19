@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   libarg.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/19 10:45:52 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/19 10:45:52 by iwordes          ###   ########.fr       */
+/*   Created: 2017/04/08 09:53:15 by iwordes           #+#    #+#             */
+/*   Updated: 2017/04/08 19:28:11 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <syph.h>
+#ifndef LIBARG_H
+# define LIBARG_H
 
-t_main	g_mn;
+# include <stdbool.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-int		main(int argc, char **argv)
+# define T_ARG0 void (*)()
+# define T_ARG1 void (*)(char*)
+
+/*
+** # define USAGE ""
+*/
+
+typedef struct	s_arg
 {
-	init(&argc, &argv, g_arg);
-	// ...
-	uninit();
-}
+	char		*name;
+	void		*fn;
+	bool		param;
+}				t_arg;
+
+void			arg_parse(int *argc, char ***argv, t_arg *arg);
+
+#endif

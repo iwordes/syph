@@ -1,0 +1,6 @@
+# Delete from table #5
+?? { 00 00 00 05 }
+
+# Comparison: Field #0 < 42
+?? { ?? } { ?? } { 00 } { 2a } # operands in payload?
+#^ less_than(type:field, type:u8)

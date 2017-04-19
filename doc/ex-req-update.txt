@@ -1,0 +1,12 @@
+# Update table #9
+?? { 00 00 00 09 }
+
+# Compare: field #5 == 42
+?? { ?? } { ?? } # operands either here or in payload
+# for that matter, operand 1 could be guaranteed to be a field
+
+# Compare: field #0 < 1000
+?? { ?? } { ?? } # ^ ...
+
+# Update: field #2 += 1
+?? { ?? }
