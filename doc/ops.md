@@ -1,24 +1,35 @@
  hex | effect
  ----|-----------------------------------------------------------------------------
   00 | ???
- --- | Database operations.
-  10 | List databases.
-  11 | Create database.
-  1f | Delete database.
- --- | Table operations.
-  20 | List tables.
-  21 | Create table.
-  2? | Show table.
-  21 | Select from table. (u8:id, u8[]:fields, subops)
-  22 |
-
-  2f | Delete table.
- --- | Range reserved.
-  30 |
-  3f |
- --- | ...
-  40 |
- --- | ...
-  50 |
- --- | Special operations.
-  ff | Ping.
+ --- | Database
+  10 | List
+  11 | Create
+  1f | Delete
+ --- | Table
+  20 | List
+  21 | Create
+  2f | Delete
+ --- | Query
+  30 | Insert
+  31 | Select
+  32 | Update
+  33 | Delete
+ --- | Comparison
+  40 | ==
+  41 | !=
+  42 | <
+  43 | <=
+  44 | >
+  45 | >=
+  4f | Chain
+ --- | Assignment
+  50 | =
+  51 | +=
+  52 | -=
+  53 | *=
+  54 | /=
+  55 | %=
+ --- | Reserved
+  6X | Reserved
+ --- | Special
+  ff | Ping
