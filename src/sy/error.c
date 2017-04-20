@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/19 10:33:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/19 20:17:33 by iwordes          ###   ########.fr       */
+/*   Created: 2017/04/19 20:00:21 by iwordes           #+#    #+#             */
+/*   Updated: 2017/04/19 20:11:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-void	init(int *argc, char ***argv)
+/*
+** TODO: sy_fatal(const char *msg, const char *file, int line)
+**       ^ exits on call
+*/
+
+void	sy_error(const char *msg, const char *file, int line)
 {
-	if (argc > 1 && chdir(arg[1]) < 0)
-		ERROR(strerror(errno));
-	init_config();
-	init_socket();
-	// ...
-	init_daemon();
-	// ...
+	dprintf(g_mn.log, "[%lu] %s:%d: Error: %s\n", time(NULL), file, line, msg);
+	exit(1);
 }

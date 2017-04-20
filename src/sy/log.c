@@ -1,4 +1,18 @@
-int		sy_log(const char *str)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   log.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/19 20:01:58 by iwordes           #+#    #+#             */
+/*   Updated: 2017/04/19 20:17:59 by iwordes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <syph.h>
+
+int		sy_log(const char *msg, const char *file, int line)
 {
-	// printf("[%lu] %s", time(NULL), str);
+	dprintf(g_mn.log, "[%lu] %s:% %s\n", time(NULL), msg);
 }

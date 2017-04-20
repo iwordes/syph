@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/19 14:08:58 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/19 20:09:21 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <unistd.h>
 
 # include <libarg.h>
+
+# define ERROR(MSG) sy_error(MSG, __FILE__, __LINE__)
+# define ASSERT(COND) if (!(COND)) ERROR("Assertion failed: " ##COND)
 
 /*
 ** =============================================================================
