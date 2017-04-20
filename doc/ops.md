@@ -21,7 +21,8 @@
   43 | <=
   44 | >
   45 | >=
-  4f | Chain
+  4e | AND
+  4f | OR
  --- | Assignment
   50 | =
   51 | +=
