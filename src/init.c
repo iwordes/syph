@@ -14,11 +14,10 @@
 
 void	init(int *argc, char ***argv)
 {
-	if (argc > 1 && chdir(arg[1]) < 0)
+	if (argc > 1 && chdir(argv[1]) < 0)
 		ERROR(strerror(errno));
-	init_config();
+	//init_config();
+	//init_thread();
 	init_socket();
-	// ...
 	init_daemon();
-	// ...
 }
