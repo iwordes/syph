@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/19 20:09:21 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/20 21:41:59 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@
 ** =============================================================================
 ** Datatypes
 */
+
+
+
+typedef struct	s_db_head
+{
+	uint8_t		endian;
+	uint8_t		x42;
+	uint16_t	blocks;
+	uint32_t	padding;
+	uint32_t	next_id;
+	uint32_t	table_len;
+	uint32_t	*table[2];
+}				t_db_head;
 
 typedef struct	s_field
 {

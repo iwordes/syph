@@ -5,6 +5,8 @@ Insert
 3. u8   Field count
 4. u8[] Fields
 5. u32  Entry count
+<!-- Necessary? Maybe not, but what about for consistency? -->
+6. 0x00 EOR
 
 Payload: Entries
 
@@ -15,6 +17,7 @@ Select
 3. u8   Field count
 4. u8[] Fields
 5.      Comparison operations
+6. 0x00 EOR
 
 Update
 ------
@@ -26,4 +29,3 @@ Update
 Delete
 ------
 0x33 Query: Delete
-

@@ -8,8 +8,12 @@ Rough overview:
 Database Header
 ---------------
 1. u8 endian order (0x00 little or 0xff big)
-2. u32 last table id
-3. Table index [ u32 id, u32 block offset ]
+2. 0x42
+3. u16 header length in 4096B blocks (future limitation: 4194302 tables max)
+4. u32 padding
+5. u32 next table id
+6. u32 table count
+7. Table index [ u32 id, u32 block offset ]
 
 Table Header
 ------------
