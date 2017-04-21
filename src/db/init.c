@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 20:44:16 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/20 21:54:15 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/21 14:39:48 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ static void	init_header_(int fd)
 	*(uint16_t)(*&buff + 2) = 1;
 	write(fd, buff, 4);
 
-	// 2. Go to end of block
-	lseek(fd, 4095, SEEK_SET);
-
-	// 3. Write 0x00 (grow file to at least 4096 bytes)
-	write(fd, &(buff = 0x00), 1);
+	// 2. Grow file to 4096B
+	ftruncate(fd, 4096);
 }
 
 int		db_init(/* ... */)

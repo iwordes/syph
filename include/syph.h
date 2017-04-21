@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/20 21:41:59 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/21 15:10:37 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ typedef struct	s_db
 {
 	uint32_t	table_cnt;
 	t_table		*table;
+
+	uint8_t		*map;
+	size_t		len;
 
 	int			fd;
 	int			jnl;
