@@ -9,7 +9,7 @@ Database Header
 ---------------
 1. u8 endian order (0x00 little or 0xff big)
 2. 0x2a
-3. u16 header length in 4096B blocks (future limitation: 4194302 tables max)
+3. u16 header length in 4096B blocks
 4. u32 next table id
 5. u32 next table block-offset
 6. u32 table count
@@ -18,9 +18,13 @@ Database Header
 Table Header
 ------------
 1. u32 table ID
-2. u24 reserved
-3. u8 field count
-4. fields [ u8:type, u8:flags, i8[30]:label ]
+2. u32 entry count
+3. u64 next field ID
+4. u16 header length in blocks
+5. u8 reserved
+6. u8 field count
+7. fields [ u8:type, u8:flags ]
 	The first field is treated as the primary key for the table.
-5.
-6. u32 entry count
+	Additionally, it must be an unsigned integer of some size.
+	That field is automatically managed for the user, but can be overridden,
+	provided one does not try to insert a value already used.
