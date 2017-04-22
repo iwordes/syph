@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/21 15:10:37 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/22 12:26:20 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,48 +20,54 @@
 # include <unistd.h>
 
 # include <libarg.h>
+# include <libtp.h>
 
 # define ERROR(MSG) sy_error(MSG, __FILE__, __LINE__)
 # define ASSERT(COND) if (!(COND)) ERROR("Assertion failed: " ##COND)
+
+# define ZALT(T, N) (T*)calloc(sizeof(T) * (N))
 
 /*
 ** =============================================================================
 ** Datatypes
 */
 
-
-
 typedef struct	s_db_head
 {
-	uint8_t		endian;
-	uint8_t		x42;
-	uint16_t	blocks;
-	uint32_t	padding;
+	uint8_t		ebyte;
+	uint8_t		x2a;
+
+	uint16_t	hd_len;
+
 	uint32_t	next_id;
+	uint32_t	next_off;
+
 	uint32_t	table_len;
-	uint32_t	*table[2];
+	uint32_t	table[2];
 }				t_db_head;
 
 typedef struct	s_field
 {
 	uint8_t		type;
 
-	uint8_t		f_id: 1;
-	uint8_t		f_pad: 5;
-	uint8_t		f_null: 1;
+	uint8_t		f_pad_: 7;
 	uint8_t		f_unique: 1;
-
-	int8_t		label[30];
 }				t_field;
 
-typedef struct	s_table
+typedef struct	s_tbl_head
 {
 	uint32_t	id;
-	uint8_t		field_cnt;
-	t_field		*field;
+	uint32_t	len;
+	uint64_t	next_id;
 
+	uint32_t	bd_len;
+	uint16_t	hd_len;
 
-}				t_table;
+	uint8_t		label[33];
+
+	uint8_t		field_len;
+	t_field		field;
+}				t_tbl_head;
 
 typedef struct	s_db
 {

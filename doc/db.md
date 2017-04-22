@@ -19,9 +19,10 @@ Table Header
 ------------
 1. u32 table ID
 2. u32 entry count
-3. u64 next field ID
+3. u64 next entry ID
+4. u32 body length in blocks
 4. u16 header length in blocks
-5. u8 reserved
+5. u8[33] label
 6. u8 field count
 7. fields [ u8:type, u8:flags ]
 	The first field is treated as the primary key for the table.
