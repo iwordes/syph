@@ -1,0 +1,26 @@
+<------------------------------------------------------------------------ op ---
+
+op_21_create(label: u8[33], field_cnt: u8, field_def: u8[2][]) -> u32
+Create a new table from the given schema.
+Return a non-zero table id if successful, or if the table already exists.
+
+op_2f_delete(id: u32) -> u8
+Delete a given table.
+Return 0x00 if successful.
+
+op_30_insert(id: u32, field_cnt: u8, fields: u8[], cnt: u32) -> u32
+Append many new entries to a table at once.
+Return either the number of entries successfully appended or zero.
+
+op_31_select(id: u32, field_cnt: u8, fields: u8[]) -> SelectResponse
+Return a u32 result count, followed by as many results.
+If field_cnt is 0, all fields are sent.
+
+op_32_update(id: u32, u8;cond[], u8;assign[])
+
+
+
+op_33_delete(id: u32, cond[]) -> u32
+Returns the number of entries deleted.
+
+--- op ------------------------------------------------------------------------>

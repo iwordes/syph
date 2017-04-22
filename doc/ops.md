@@ -1,12 +1,8 @@
  hex | effect
  ----|-----------------------------------------------------------------------------
   00 | ???
- --- | Database
-  10 | List
-  11 | Create
-  1f | Delete
  --- | Table
-  20 | List
+  20 | List (later)
   21 | Create
   2f | Delete
  --- | Query
@@ -14,23 +10,5 @@
   31 | Select
   32 | Update
   33 | Delete
- --- | Comparison
-  40 | ==
-  41 | !=
-  42 | <
-  43 | <=
-  44 | >
-  45 | >=
-  4e | AND
-  4f | OR
- --- | Assignment
-  50 | =
-  51 | +=
-  52 | -=
-  53 | *=
-  54 | /=
-  55 | %=
- --- | Reserved
-  6X | Reserved
  --- | Special
   ff | Ping

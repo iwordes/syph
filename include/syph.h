@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/22 12:26:20 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/22 16:48:23 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@
 
 # define ZALT(T, N) (T*)calloc(sizeof(T) * (N))
 
+# ifdef __BIG_ENDIAN__
+#  define EBYTE 0xff
+# else
+#  define EBYTE 0x00
+# endif
+
+# define PROT_RW (PROT_READ | PROT_WRITE)
+
 /*
 ** =============================================================================
 ** Datatypes
@@ -42,7 +50,7 @@ typedef struct	s_db_head
 	uint32_t	next_id;
 	uint32_t	next_off;
 
-	uint32_t	table_len;
+	uint32_t	table_cnt;
 	uint32_t	table[2];
 }				t_db_head;
 
@@ -52,6 +60,9 @@ typedef struct	s_field
 
 	uint8_t		f_pad_: 7;
 	uint8_t		f_unique: 1;
+
+	uint16_t	pad;
+	uint32_t	len;
 }				t_field;
 
 typedef struct	s_tbl_head
@@ -71,23 +82,26 @@ typedef struct	s_tbl_head
 
 typedef struct	s_db
 {
-	uint32_t	table_cnt;
-	t_table		*table;
-
 	uint8_t		*map;
-	size_t		len;
-
+	size_t		size;
 	int			fd;
-	int			jnl;
+
+	t_tp_rwl	lock;
+
+
+	t_db_head	*head;
+
+
+	uint32_t	tlen;
+	uint32_t	tmem;
+	t_tbl_head	**tbl;
 }				t_db;
 
 typedef struct	s_main
 {
-	// ...
-	t_db		*db;
+	t_db		db;
 
-	bool		daemon;
-	bool		v;
+	bool		bg;
 }				t_main;
 
 /*

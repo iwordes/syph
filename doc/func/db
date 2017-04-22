@@ -1,0 +1,10 @@
+db_grow(/* ... */)
+Double the available size for a given database.
+
+db_init(/* ... */)
+
+db_load(t_db *db, const char *path)
+Load and validate a database into a given t_db.
+
+db_unload(t_db *db)
+Perform cleanup on a loaded t_db.
