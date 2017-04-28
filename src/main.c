@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:52 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/19 10:45:52 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/27 15:52:35 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ t_main	g_mn;
 int		main(int argc, char **argv)
 {
 	init(&argc, &argv, g_arg);
-	// ...
+	req_loop();
 	uninit();
 }

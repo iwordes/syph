@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ff_ping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/19 20:00:21 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/27 15:24:03 by iwordes          ###   ########.fr       */
+/*   Created: 2017/04/28 15:45:10 by iwordes           #+#    #+#             */
+/*   Updated: 2017/04/28 15:47:53 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-void	sy_error(const char *msg)
+/*
+** In the future, a server can lie about its endianness and simply convert to
+** big endian for transmission if information about the server arch is a concern
+*/
+
+void	op_ff_ping(int sock)
 {
-	dprintf(g_mn.log, "[%lu] Error: %s\n", time(NULL), msg);
+	#ifdef __BIG_ENDIAN
+	write(sock, "\xff", 1);
+	#else
+	write(sock, "", 1);
+	#endif
 }

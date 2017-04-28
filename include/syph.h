@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/22 16:48:23 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/27 20:12:13 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@
 # include <libarg.h>
 # include <libtp.h>
 
-# define ERROR(MSG) sy_error(MSG, __FILE__, __LINE__)
-# define ASSERT(COND) if (!(COND)) ERROR("Assertion failed: " ##COND)
+# define ERROR(MSG) sy_error(MSG)
+# define FATAL(MSG) sy_fatal(MSG, __FILE__, __LINE__)
+# define ASSERT(COND) if (!(COND)) FATAL("Assertion failed: " ##COND)
+
+# define READ(F, T)
 
 # define ZALT(T, N) (T*)calloc(sizeof(T) * (N))
 
@@ -34,6 +37,42 @@
 # endif
 
 # define PROT_RW (PROT_READ | PROT_WRITE)
+
+/*
+**
+** Error Codes
+*/
+
+# define DBE_RECV /* ? */
+# define DBE_SEND /* ? */
+
+# define DBE_READ DBE_RECV
+# define DBE_WRITE DBE_SEND
+
+/*
+**
+** Conversion
+*/
+
+# ifdef __BIG_ENDIAN__
+#  define H64N(N) (N)
+#  define N64H(N) (N)
+# else
+// TODO
+#  define H64N1(N) ((N & 0xff) << 56) | ((N & 0xff00) << 48)
+#  define H64N2(N) ((N & 0xff0000) << 40) | ((N & 0xff000000) << 8)
+#  define H64N3(N) ((N & (255 << 32)) >> 8) | ((N & (255 << 40)) >> 16)
+#  define H64N4(N) ((N & (255 << 56)) >> 56) | (N & (255 << 48) >> 40)
+// TODO
+
+#  define H64N(N) ((H64N1(N) | H64N2(N) | H64N3(N) | H64N4(N)))
+#  define N64H(N) H64N(N)
+# endif
+
+# define H32N(N) htonl(N)
+# define N32H(N) ntohl(N)
+# define H16N(N) htons(N)
+# define N16H(N) ntohs(N)
 
 /*
 ** =============================================================================
@@ -88,7 +127,6 @@ typedef struct	s_db
 
 	t_tp_rwl	lock;
 
-
 	t_db_head	*head;
 
 
@@ -100,6 +138,10 @@ typedef struct	s_db
 typedef struct	s_main
 {
 	t_db		db;
+
+	int			log;
+
+	int			e;
 
 	bool		bg;
 }				t_main;

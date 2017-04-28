@@ -19,13 +19,10 @@ Table Header
 ------------
 1. u32 table ID
 2. u32 entry count
-3. u64 next entry ID
+3. u32 next entry ID
 4. u32 body length in blocks
-4. u16 header length in blocks
-5. u8[33] label
-6. u8 field count
-7. fields [ u8:type, u8:flags ]
-	The first field is treated as the primary key for the table.
-	Additionally, it must be an unsigned integer of some size.
-	That field is automatically managed for the user, but can be overridden,
-	provided one does not try to insert a value already used.
+5. u16 header length in blocks
+6. u8[33] label
+7. u8 field count
+8. fields [ u8:type, u8:flags ]
+	The first field is an incrementing u32 representing the entry's identity.
