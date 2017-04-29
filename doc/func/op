@@ -16,11 +16,10 @@ op_31_select(id: u32, field_cnt: u8, fields: u8[]) -> SelectResponse
 Return a u32 result count, followed by as many results.
 If field_cnt is 0, all fields are sent.
 
-op_32_update(id: u32, u8;cond[], u8;assign[])
-
-
+op_32_update(id: u32, u8;cond[], u8;assign[]) -> u32
+Return a u32 number of entries updated.
 
 op_33_delete(id: u32, cond[]) -> u32
-Returns the number of entries deleted.
+Return a u32 number of entries deleted.
 
 --- op ------------------------------------------------------------------------>
