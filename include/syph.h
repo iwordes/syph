@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 12:51:05 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/29 15:27:29 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,29 +167,34 @@ typedef struct	s_main
 typedef struct	s_req30
 {
 	uint32_t	tid;
+	uint32_t	limit;
 	uint8_t		field_len;
+
 	uint8_t		field[255];
-	uint32_t	entry_len;
 }				t_req30;
 
 typedef struct	s_req31
 {
 	uint32_t	tid;
+	uint32_t	limit;
 	uint8_t		field_len;
-	uint8_t		field[255];
+	uint8_t		cmp_len;
+	uint8_t		order_len;
 
-	//uint16_t	cond_len;
+	uint8_t		field[255];
 }				t_req31;
 
 typedef struct	s_req32
 {
 	uint32_t	tid;
 	uint8_t		cond_len;
+	uint8_t		assign_len;
 }				t_req32;
 
 typedef struct	s_req33
 {
 	uint32_t	tid;
+	uint32_t	limit;
 	uint8_t		cond_len;
 }				t_req33;
 
