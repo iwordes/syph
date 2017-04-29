@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/28 18:11:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/29 12:51:05 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <libarg.h>
 # include <libtp.h>
 
-# define ERROR(MSG) sy_error(MSG)
+
 # define FATAL(MSG) sy_fatal(MSG, __FILE__, __LINE__)
 # define ASSERT(COND) if (!(COND)) FATAL("Assertion failed: " ##COND)
 
@@ -43,9 +43,19 @@
 ** Error Codes
 */
 
-# define DBE_OOM /* ? */
-# define DBE_RECV /* ? */
-# define DBE_SEND /* ? */
+# define ERROR(CODE) sy_error(CODE)
+
+# define DBE 1
+# define DBE_OOM 2
+
+# define DBE_INIT_CHDIR 11
+# define DBE_INIT_OCONF 12
+# define DBE_INIT_OLOGF 13
+# define DBE_INIT_OLOG 14
+
+# define DBE_SACC 20 /* ? socket-accept */
+# define DBE_RECV /* ? socket-recv */
+# define DBE_SEND /* ? socket-send */
 
 # define DBE_READ DBE_RECV
 # define DBE_WRITE DBE_SEND
@@ -109,7 +119,9 @@ typedef struct	s_tbl_head
 {
 	uint32_t	id;
 	uint32_t	len;
-	uint64_t	next_id;
+
+	uint32_t	next_id;
+	uint32_t	entry_size;
 
 	uint32_t	bd_len;
 	uint16_t	hd_len;
@@ -159,6 +171,27 @@ typedef struct	s_req30
 	uint8_t		field[255];
 	uint32_t	entry_len;
 }				t_req30;
+
+typedef struct	s_req31
+{
+	uint32_t	tid;
+	uint8_t		field_len;
+	uint8_t		field[255];
+
+	//uint16_t	cond_len;
+}				t_req31;
+
+typedef struct	s_req32
+{
+	uint32_t	tid;
+	uint8_t		cond_len;
+}				t_req32;
+
+typedef struct	s_req33
+{
+	uint32_t	tid;
+	uint8_t		cond_len;
+}				t_req33;
 
 /*
 ** =============================================================================

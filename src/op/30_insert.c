@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 10:34:00 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/29 12:13:22 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static int	insert1(int sock, t_req30 *req)
 void	op_32_insert(int sock)
 {
 	t_req30		req;
+	t_tbl_head	*tbl;
 	uint32_t	i;
+
 
 	// 1. Read request.
 	// TODO: Error after all reads if any failed
@@ -44,18 +46,20 @@ void	op_32_insert(int sock)
 	read(sock, &req.field, req.field_len);
 	read(sock, &req.entry_len, 4);
 
+
 	// 2. Allocate space in table for new entries.
-	if (/* ... */)
+	if (tbl_grow(req.tid, req.entry_len) != 0)
 	{
 		error(/* ? */);
 		return ;
 	}
 
+
 	// 3. Insert entries.
 	i = 0;
 	while (i < e_len)
 	{
-		tbl_upd(sock, &req, table(req->tid)->len + i);
+		tbl_write(sock, &req, table(req->tid)->len + i);
 		i += 1;
 	}
 
