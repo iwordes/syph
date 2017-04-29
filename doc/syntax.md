@@ -1,31 +1,33 @@
 Insert
 ------
-1. 0x30 Query: Insert
-2. u32  Table ID
+1. u32  Table ID
+2. u32  Limit (# entries)
 3. u8   Field count
 4. u8[] Fields
-5. u32  Entry count
-<!-- Necessary? Maybe not, but what about for consistency? -->
-6. 0x00 EOR
-
-Payload: Entries
+5. []   Entries
 
 Select
 ------
-1. 0x31 Query: Select
-2. u32  Table ID
+1. u32  Table ID
+2. u32  Limit
 3. u8   Field count
-4. u8[] Fields
-5.      Comparison operations
-6. 0x00 EOR
+4. u8   Comparison count
+5. u8   Order count
+6. u8[] Fields
+7. []   Comparisons
+8. []   Orders
 
 Update
 ------
-1. 0x32 Query: Update
-2. u32  Table ID
-4.      Comparison operations
-6.      Assignment operations
+1. u32 Table ID
+2. u8  Comparison count
+3. u8  Assignment count
+4. []  Comparisons
+5. []  Assignments
 
 Delete
 ------
-0x33 Query: Delete
+1. u32 Table ID
+2. u32 Limit
+3. u8  Comparison count
+4. []  Comparisons
