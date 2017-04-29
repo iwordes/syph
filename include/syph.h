@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/27 20:12:13 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/28 18:11:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 ** Error Codes
 */
 
+# define DBE_OOM /* ? */
 # define DBE_RECV /* ? */
 # define DBE_SEND /* ? */
 
@@ -145,6 +146,19 @@ typedef struct	s_main
 
 	bool		bg;
 }				t_main;
+
+/*
+** =============================================================================
+** Requests
+*/
+
+typedef struct	s_req30
+{
+	uint32_t	tid;
+	uint8_t		field_len;
+	uint8_t		field[255];
+	uint32_t	entry_len;
+}				t_req30;
 
 /*
 ** =============================================================================
