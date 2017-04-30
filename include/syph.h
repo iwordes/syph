@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 21:12:26 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/04/30 15:48:52 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ typedef struct	s_req31
 	uint8_t		order_len;
 
 	uint8_t		field[255];
-	size_t		tab_start;
+	uint8_t		*tab_start;
 }				t_req31;
 
 typedef struct	s_req32
