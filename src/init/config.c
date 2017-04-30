@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unlock.c                                           :+:      :+:    :+:   */
+/*   config.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/22 14:16:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 20:12:13 by iwordes          ###   ########.fr       */
+/*   Created: 2017/04/29 12:19:16 by iwordes           #+#    #+#             */
+/*   Updated: 2017/04/29 20:22:36 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	db_unlock(void)
+#include <syph.h>
+
+/*
+** TODO: Multiple DB support
+** TODO: Actual configuration
+*/
+
+void	init_config(void)
 {
-	tp_rwunlock(&g_mn.db.lock);
+	if (db_load("syph.db") != 0)
+		exit(DBE_LOAD);
 }

@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unlock.c                                           :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/22 14:16:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 20:12:13 by iwordes          ###   ########.fr       */
+/*   Created: 2017/04/29 20:16:44 by iwordes           #+#    #+#             */
+/*   Updated: 2017/04/29 20:25:38 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	db_unlock(void)
+#include <syph.h>
+
+void	init_signal(void)
 {
-	tp_rwunlock(&g_mn.db.lock);
+	uint8_t	i;
+
+	i = 0;
+	/*
+	** NOTE: Disabled for debugging.
+	while (i < 32)
+		signal(i, SIG_IGN);
+	*/
+	signal(SIGTERM, uninit);
 }

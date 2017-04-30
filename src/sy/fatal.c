@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unlock.c                                           :+:      :+:    :+:   */
+/*   fatal.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/22 14:16:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 20:12:13 by iwordes          ###   ########.fr       */
+/*   Created: 2017/04/27 15:12:35 by iwordes           #+#    #+#             */
+/*   Updated: 2017/04/29 20:19:24 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	db_unlock(void)
+void	sy_fatal(const char *msg, const char *file, int line)
 {
-	tp_rwunlock(&g_mn.db.lock);
+	dprintf(g_mn.log, "[%lu] %s:%d: FATAL: %s\n", time(NULL), file, line, msg);
+	uninit(0);
+	exit(1);
 }

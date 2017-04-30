@@ -6,13 +6,17 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:33:19 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/19 10:33:29 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/29 20:18:58 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-void	uninit(void)
+void	uninit(int z)
 {
-	// ...
+	tp_destroy(g_mn.tp);
+	close(g_mn.sock);
+	close(g_mn.log);
+	db_unload();
+	(void)z;
 }

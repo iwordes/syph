@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unlock.c                                           :+:      :+:    :+:   */
+/*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/22 14:16:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 20:12:13 by iwordes          ###   ########.fr       */
+/*   Created: 2017/04/27 15:42:58 by iwordes           #+#    #+#             */
+/*   Updated: 2017/04/29 20:23:00 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	db_unlock(void)
+#include <push_swap.h>
+
+void	init_thread(void)
 {
-	tp_rwunlock(&g_mn.db.lock);
+	if ((g_mn.tp = tp_create(4, 64)) == NULL)
+		exit(DBE_TPOOL);
 }
