@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 15:27:29 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/29 21:12:26 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # endif
 
 # define PROT_RW (PROT_READ | PROT_WRITE)
+
+# define TAB_BD(T) ((uint8_t*)(T) + (T)->hd_blk * 4096)
 
 /*
 **
@@ -111,7 +113,7 @@ typedef struct	s_field
 	uint8_t		f_pad_: 7;
 	uint8_t		f_unique: 1;
 
-	uint16_t	pad;
+	uint16_t	size;
 	uint32_t	len;
 }				t_field;
 
@@ -123,8 +125,8 @@ typedef struct	s_tbl_head
 	uint32_t	next_id;
 	uint32_t	entry_size;
 
-	uint32_t	bd_len;
-	uint16_t	hd_len;
+	uint32_t	bd_blk;
+	uint16_t	hd_blk;
 
 	uint8_t		label[33];
 
@@ -182,6 +184,7 @@ typedef struct	s_req31
 	uint8_t		order_len;
 
 	uint8_t		field[255];
+	size_t		tab_start;
 }				t_req31;
 
 typedef struct	s_req32

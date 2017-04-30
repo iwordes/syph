@@ -24,5 +24,5 @@ Table Header
 5. u16 header length in blocks
 6. u8[33] label
 7. u8 field count
-8. fields [ u8:type, u8:flags ]
+8. fields [ u8:type, u8:flags, u16 pad, u32 len ]
 	The first field is an incrementing u32 representing the entry's identity.
