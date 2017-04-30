@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:13:51 by kdavis            #+#    #+#             */
-/*   Updated: 2017/04/30 15:50:42 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/04/30 16:59:24 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@
 #define FIELD req->field[j]
 #define FIELD_SIZE(F) (F->len * F->size)
 
+t_field		*field(t_tab_head *tab, uint8_t fid)
+{
+	if (fid >= tab->schema_len)
+		return (NULL);
+	return ((t_field*)(tab + 1) + fid);
+}
+
 uint32_t	calc_field_offset(t_tbl_head *tab, uint8_t index)
 {
 	t_field		*current;
@@ -76,12 +83,12 @@ static void	write_selction(int sock, t_tbl_head *tab, t_req31 *req,
 	uint32_t	total;
 	uint32_t	entry_count
 
-	entry_count = tab->len * req->field_len;
+	entry_count = tab->len * req->schema_len;
 	entry_count = (entry_count < req.limit ? entry_count : req->limit);
 	write(sock, &entry_count, sizeof(entry_count));
 	i = 0;
 	total = 0;
-	while (i < req->field_len)
+	while (i < req->schema_len)
 	{
 		j = 0;
 		while (j < tab->len && total++ < entry_count)
