@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 21:12:26 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/04/30 15:40:58 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,7 @@
 # include <libarg.h>
 # include <libtp.h>
 
-
-# define FATAL(MSG) sy_fatal(MSG, __FILE__, __LINE__)
-# define ASSERT(COND) if (!(COND)) FATAL("Assertion failed: " ##COND)
-
-# define READ(F, T)
-
-# define ZALT(T, N) (T*)calloc(sizeof(T) * (N))
+# define BD_BLK_DFL (1024 * 1024) / 4096
 
 # ifdef __BIG_ENDIAN__
 #  define EBYTE 0xff
@@ -38,22 +32,46 @@
 
 # define PROT_RW (PROT_READ | PROT_WRITE)
 
+/*
+** =============================================================================
+** Utils
+*/
+
+# define ERROR(MSG) sy_error(MSG, __FILE__, __LINE__)
+# define FATAL(MSG) sy_fatal(MSG, __FILE__, __LINE__)
+# define ASSERT(COND) if (!(COND)) FATAL("Assertion failed: " ##COND)
+
 # define TAB_BD(T) ((uint8_t*)(T) + (T)->hd_blk * 4096)
 
+# define ZALT(T, N) (T*)calloc(sizeof(T) * (N))
+
 /*
-**
+** =============================================================================
+** Types
+*/
+
+# define I8 int8_t
+# define I16 int16_t
+# define I32 int32_t
+# define I64 int64_t
+
+# define U8 uint8_t
+# define U16 uint16_t
+# define U32 uint32_t
+# define U64 uint64_t
+
+/*
+** =============================================================================
 ** Error Codes
 */
 
-# define ERROR(CODE) sy_error(CODE)
+# define DBERROR(CODE) sy_dberror(CODE)
 
 # define DBE 1
 # define DBE_OOM 2
 
-# define DBE_INIT_CHDIR 11
-# define DBE_INIT_OCONF 12
-# define DBE_INIT_OLOGF 13
-# define DBE_INIT_OLOG 14
+# define DBE_CHDIR 10
+# define DBE_O_LOG 11
 
 # define DBE_SACC 20 /* ? socket-accept */
 # define DBE_RECV /* ? socket-recv */
@@ -63,7 +81,7 @@
 # define DBE_WRITE DBE_SEND
 
 /*
-**
+** =============================================================================
 ** Conversion
 */
 
@@ -153,6 +171,7 @@ typedef struct	s_db
 typedef struct	s_main
 {
 	t_db		db;
+	t_tp		*tp;
 
 	int			log;
 
@@ -165,6 +184,12 @@ typedef struct	s_main
 ** =============================================================================
 ** Requests
 */
+
+typedef struct	s_req21
+{
+	U8			label[33];
+	U8			schema_len;
+}				t_req21;
 
 typedef struct	s_req30
 {
