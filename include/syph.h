@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/30 18:17:52 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/30 18:23:27 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,6 @@ typedef struct	s_req31
 
 	uint8_t		field[255];
 	uint8_t		*tab_start;
-
 	U32			offset[255];
 	U8			*entry;
 }				t_req31;

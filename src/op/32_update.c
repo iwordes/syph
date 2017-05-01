@@ -6,13 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/30 15:38:54 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/30 17:36:44 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/30 18:22:25 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-static t_cmp	g_camp =
+static t_cmp	g_cmp =
 {
 	{ 0x40, op_40_equ },
 	{ 0x41, op_41_neq },
