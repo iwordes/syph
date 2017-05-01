@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/30 15:54:50 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/30 18:17:52 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # include <libarg.h>
 # include <libtp.h>
 
-# define BD_BLK_DFL (1024 * 1024) / 4096
+# define TAB_HD_BLK 1
+# define TAB_BD_BLK (1024 * 1024) / 4096
 
 # ifdef __BIG_ENDIAN__
 #  define EBYTE 0xff
@@ -148,8 +149,7 @@ typedef struct	s_tbl_head
 
 	uint8_t		label[33];
 
-	uint8_t		field_len;
-	t_field		field;
+	uint8_t		schema_len;
 }				t_tbl_head;
 
 typedef struct	s_db
@@ -210,6 +210,9 @@ typedef struct	s_req31
 
 	uint8_t		field[255];
 	uint8_t		*tab_start;
+
+	U32			offset[255];
+	U8			*entry;
 }				t_req31;
 
 typedef struct	s_req32
