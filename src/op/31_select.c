@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:13:51 by kdavis            #+#    #+#             */
-/*   Updated: 2017/04/30 17:49:47 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/04/30 18:33:34 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 **	}				t_req31;
 */
 
-#define FIELD req->field[j]
+#define FIELD req->field[i]
 #define FIELD_SIZE(F) (F->len * F->size)
 
 t_field		*field(t_tab_head *tab, uint8_t fid)
@@ -77,31 +77,45 @@ uint32_t	calc_field_offset(t_tbl_head *tab, uint8_t index)
 	return (offset);
 }
 
-static int	write_selction(int sock, t_tbl_head *tab, t_req31 *req,
-		uint32_t offsets)
+static int	write_fields(int sock, t_tbl_head *tab, t_req31 *req)
 {
 	t_field		*current;
-	uint32_t	entr;
-	uint32_t	j;
+	uint32_t	i;
+
+	i = 0;
+	while (i < req->field_len)
+	{
+		if (!(current = field(tab, FIELD)))
+			return (1);
+		if (FIELD != 0 && req->offset[FIELD] == 0)
+			req->offset[FIELD] = calc_field_offset(tab, FIELD);
+		write(sock, entr + req->offset[FIELD],
+				FIELD_SIZE(current));
+		i++;
+	}
+	return (0);
+}
+
+static int	write_selction(int sock, t_tbl_head *tab, t_req31 *req,
+		uint32_t *offsets)
+{
+	uint8_t		*entry;
+	uint32_t	i;
 	uint32_t	entry_count
 
 	entry_count = (tab->len < req.limit ? tab->len : req->limit);
 	write(sock, &entry_count, sizeof(entry_count));
-	entr = 0;
-	while (entr < tab->bd_blk && entry_count-- > 0)
+	i = 0;
+	req->entry = (U8*)req.tab_start;
+	while (i < tab->len && entry_count-- > 0)
 	{
-		j = ~0;
-		if (*(U32*)(req.tab_start + entr))
-			while (++j < req->field_len)
-			{
-				if (!(current = field(tab, FIELD)))
-					return (1);
-				if (FIELD != 0 && field_offsets[FIELD] == 0)
-					offsets[FIELD] = calc_field_offset(tab, FIELD);
-				write(sock, req.tab_start + entr + offsets[FIELD],
-						FIELD_SIZE(current));
-			}
-		entr += tab->entry_size;
+		if (*(U32*)(req->entry))
+		{
+			if (write_fields(sock, tab, req))
+				return (1);
+			i++;
+		}
+		req->entr += tab->entry_size;
 	}
 	return (0);
 }
@@ -114,14 +128,15 @@ void	op_31_select(int sock)
 {
 	t_req31		req;
 	t_tbl_head	*tab;
-	uint32_t	field_offsets[255];
 	uint32_t	entry_count;
 
 
 	if (!sy_read(sock, &req, 11))
-	//	error;
-
-	bzero(field_offsets, sizeof(field_offsets));
+	{
+		ERROR("ERROR READING SOCKET");
+		return ;
+	}
+	bzero(req.offset, sizeof(req.offset));
 	db_rlock();
 	tab = table(req.tid); 
 	req.tab_start = TAB_DB(tab);
