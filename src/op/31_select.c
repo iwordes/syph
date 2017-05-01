@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:13:51 by kdavis            #+#    #+#             */
-/*   Updated: 2017/04/30 17:08:54 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/04/30 17:49:47 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,28 +81,27 @@ static int	write_selction(int sock, t_tbl_head *tab, t_req31 *req,
 		uint32_t offsets)
 {
 	t_field		*current;
-	uint32_t	i;
+	uint32_t	entr;
 	uint32_t	j;
-	uint32_t	total;
 	uint32_t	entry_count
 
-	entry_count = tab->len * req->schema_len;
-	entry_count = (entry_count < req.limit ? entry_count : req->limit);
+	entry_count = (tab->len < req.limit ? tab->len : req->limit);
 	write(sock, &entry_count, sizeof(entry_count));
-	i = ~0;
-	total = 0;
-	while (++i < req->schema_len)
+	entr = 0;
+	while (entr < tab->bd_blk && entry_count-- > 0)
 	{
 		j = ~0;
-		while (++j < tab->len && total++ < entry_count)
-		{
-			if (!(current = field(tab, FIELD)))
-				return (1);
-			if (FIELD != 0 && field_offsets[FIELD] == 0)
-				offsets[FIELD] = calc_field_offset(tab, FIELD);
-			write(sock, req.tab_start + i * tab->entry_size + offsets[FIELD],
-					FIELD_SIZE(current));
-		}
+		if (*(U32*)(req.tab_start + entr))
+			while (++j < req->field_len)
+			{
+				if (!(current = field(tab, FIELD)))
+					return (1);
+				if (FIELD != 0 && field_offsets[FIELD] == 0)
+					offsets[FIELD] = calc_field_offset(tab, FIELD);
+				write(sock, req.tab_start + entr + offsets[FIELD],
+						FIELD_SIZE(current));
+			}
+		entr += tab->entry_size;
 	}
 	return (0);
 }
