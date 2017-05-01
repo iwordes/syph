@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/30 18:23:27 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/04/30 18:38:23 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ typedef struct	s_field
 	uint32_t	len;
 }				t_field;
 
-typedef struct	s_tbl_head
+typedef struct	s_tab_head
 {
 	uint32_t	id;
 	uint32_t	len;
@@ -150,7 +150,7 @@ typedef struct	s_tbl_head
 	uint8_t		label[33];
 
 	uint8_t		schema_len;
-}				t_tbl_head;
+}				t_tab_head;
 
 typedef struct	s_db
 {
