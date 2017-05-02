@@ -9,6 +9,7 @@
   05 | i16
   06 | i32
   07 | i64
+  08 | utf8 (string)
  --- | Floating-point
   10 | f32
   11 | f64
