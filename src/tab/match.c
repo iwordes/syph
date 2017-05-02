@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   by_label.c                                         :+:      :+:    :+:   */
+/*   match.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/30 17:38:03 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/30 17:39:57 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/02 14:15:24 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/02 15:27:19 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-t_tab	*tab_by_label(U8 label[33])
+/*
+** TODO: Handle comparisons
+*/
+
+void	tab_match(t_tab *tab, U8 *ent, t_tabmat *tm)
 {
-	// ...
-	return (NULL);
+	U8		i;
+
+	i = ~0;
+	while (++i < tm->req.cmp_len)
+		if (!tm->req.cmp[i](/* ... */))
+			return ;
+	tm->cnt += 1;
 }

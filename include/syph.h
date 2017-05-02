@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/30 18:38:23 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/02 14:35:08 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,26 @@ typedef struct	s_req33
 	uint32_t	limit;
 	uint8_t		cond_len;
 }				t_req33;
+
+/*
+** =============================================================================
+** Reqiter
+*/
+
+typedef struct	s_tabsel
+{
+
+}				t_tabsel;
+
+typedef struct	s_tabupd
+{
+
+}				t_tabupd;
+
+typedef struct	s_tabdel
+{
+
+}				t_tabdel;
 
 /*
 ** =============================================================================

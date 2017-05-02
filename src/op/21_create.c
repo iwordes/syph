@@ -12,7 +12,7 @@
 
 #include <syph.h>
 
-#define THEAD t_tab_head
+#define THEAD t_tab
 
 static THEAD	g_init_head =
 {
@@ -40,7 +40,7 @@ static int		panic(int n)
 
 int				op_21_create(const U8 label[33], U8 schema_len, t_field *schema)
 {
-	t_tab_head	*tab;
+	t_tab	*tab;
 	t_req21		req;
 
 	sy_read(sock, &req, sizeof(req));
@@ -49,7 +49,7 @@ int				op_21_create(const U8 label[33], U8 schema_len, t_field *schema)
 		PANIC(1);
 	if (db_grow(DHEAD->next_off + 1 + BD_BLK_DFL))
 		PANIC(2);
-	tab = (t_tab_head*)(map + DHEAD->next_off * 4096);
+	tab = (t_tab*)(map + DHEAD->next_off * 4096);
 	*tab = g_init_head;
 	memcpy(tab->label, req.label, 32);
 	tab->id = DHEAD->next_id;

@@ -50,7 +50,7 @@
 #define FIELD req->field[i]
 #define FIELD_SIZE(F) (F->len * F->size)
 
-t_field		*field(t_tab_head *tab, uint8_t fid)
+t_field		*field(t_tab *tab, uint8_t fid)
 {
 	if (fid >= tab->schema_len)
 	{
