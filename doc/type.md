@@ -9,18 +9,13 @@
   05 | i16
   06 | i32
   07 | i64
-  08 | utf8 (string)
+  0d | utf8 (string)
+  0e | Reserved (unsigned bigint)
+  0f | Reserved (signed bigint)
  --- | Floating-point
   10 | f32
   11 | f64
+  1f | Reserved (decimal)
  --- | Timestamps (future)
   20 | [ u16:YYYY, u8:MM, u8:DD, u8:hh, u8:mm, u8:ss ]
- --- | Arrays
-  80 | u8[]
-  81 | u16[]
-  82 | u32[]
-  83 | u64[]
-  84 | i8[]
-  85 | i16[]
-  86 | i32[]
-  87 | i64[]
+ ---

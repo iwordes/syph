@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   40_equ.c                                           :+:      :+:    :+:   */
+/*   50_set.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/30 15:48:10 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/02 15:49:41 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/02 15:50:52 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/02 15:56:31 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-bool	op_40_equ(t_field *meta, U8 *lhs, U8 *rhs)
+void	op_50_set(t_field *meta, U8 *field, U8 *data)
 {
 	if (meta->type == TYPE_UTF8)
-		return (strcmp(lhs, rhs) == 0);
-	return (memcmp(lhs, rhs, meta->len * meta->size));
+		memcpy(field, data + 4, *(U32*)data)
+	memcpy(field, data, meta->size * meta->len);
 }
