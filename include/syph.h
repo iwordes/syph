@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/02 14:35:08 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 11:15:34 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define TAB_BD(T) ((uint8_t*)(T) + (T)->hd_blk * 4096)
 
 # define ZALT(T, N) (T*)calloc(sizeof(T) * (N))
+# define RALT(M, T, N) (T*)realloc(M, sizeof(T) * (N))
+# define DRALT(M, T, N) (M = (T*)reallocf(M, sizeof(T) * (N)))
 
 /*
 ** =============================================================================
@@ -136,7 +138,7 @@ typedef struct	s_field
 	uint32_t	len;
 }				t_field;
 
-typedef struct	s_tab_head
+typedef struct	s_tab
 {
 	uint32_t	id;
 	uint32_t	len;
@@ -150,7 +152,7 @@ typedef struct	s_tab_head
 	uint8_t		label[33];
 
 	uint8_t		schema_len;
-}				t_tab_head;
+}				t_tab;
 
 typedef struct	s_db
 {
@@ -219,6 +221,8 @@ typedef struct	s_req32
 	uint32_t	tid;
 	uint8_t		cond_len;
 	uint8_t		assign_len;
+
+
 }				t_req32;
 
 typedef struct	s_req33
@@ -240,13 +244,26 @@ typedef struct	s_tabsel
 
 typedef struct	s_tabupd
 {
-
+	uint32_t	cnt;
+	t_req32		req;
 }				t_tabupd;
 
 typedef struct	s_tabdel
 {
 
 }				t_tabdel;
+
+typedef struct	s_getpair
+{
+	t_tab		*tab;
+	int			sock;
+}				t_getpair;
+
+typedef struct	s_pair
+{
+	U8			op;
+	U8			id;
+}				t_pair;
 
 /*
 ** =============================================================================
@@ -262,6 +279,26 @@ void			uninit(void);
 */
 
 // ...
+
+/*
+** =============================================================================
+** Operation
+*/
+
+void			op_21_create(int sock);
+void			op_2f_delete(int sock);
+
+void			op_30_insert(int sock);
+void			op_31_select(int sock);
+void			op_32_update(int sock);
+void			op_33_delete(int sock);
+
+bool			op_40_equ(t_field *meta, U8 *lhs, U8 *rhs);
+bool			op_40_neq(t_field *meta, U8 *lhs, U8 *rhs);
+
+void			op_50_set(t_field *meta, U8 *lhs, U8 *rhs);
+
+void			op_ff_ping(int sock);
 
 /*
 ** =============================================================================

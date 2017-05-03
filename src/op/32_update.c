@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/30 15:38:54 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/02 14:42:07 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 11:18:02 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,47 +43,27 @@ static t_asn	g_asn =
 
 #define REQ tu.req
 
+#define E1 { db_unlock(); return ; }
+#define E2 { db_unlock(); free(REQ.cmp_val); return ; }
+
 void		op_32_update(int sock)
 {
 	t_tabupd	tu;
+	t_getpair	p;
 
 	bzero(&tu, sizeof(tu));
 	sy_read(sock, &REQ, 6);
-
-	// TODO: Elaborate
-	sy_read(sock, &REQ.cond, sizeof(/* ... */) * REQ.cond_len);
-	sy_read(sock, &REQ.assign, sizeof(/* ... */) * REQ.assign_len);
-
 	db_wlock();
-	tab_foreach(REQ.tid, tab_update, &tu);
+	p.sock = sock;
+	if ((p.tab = table(REQ.tid)) == NULL)
+		E1;
+	if (sy_getpair(p, REQ.cmp_len, &REQ.cmp, &REQ.cmp_val))
+		E1;
+	if (sy_getpair(p, REQ.asn_len, &REQ.asn, &REQ.asn_val))
+		E2;
+	tab_foreach(p.tab, tab_update, &tu);
 	db_unlock();
 	write(sock, &tu.cnt, 4);
+	free(REQ.cmp_val);
+	free(REQ.asn_val);
 }
-
-/*
-{
-	t_req32	req;
-	U32		cnt;
-	U32		i;
-
-	sy_read(sock, &req, 6);
-
-	db_wlock();
-	i = 0;
-	while (/* ... )
-	{
-		if (/* cmp )
-			cnt += 1;
-		i += tab->entry_size;
-	}
-	write(sock, &cnt, 4);
-	i = 0;
-	while (/* ... )
-	{
-		if (/* cmp )
-			/* write_fields (sock, ent, &req);
-		i += tab->entry_size;
-	}
-	db_unlock();
-}
-*/
