@@ -22,9 +22,9 @@ Update
 ------
 1. u32 Table ID
 2. u8  Comparison count
-3. []  Comparisons
-4. []  Values
-5. u8  Assignment count
+3. u8  Assignment count
+4. []  Comparisons
+5. []  Values
 6. []  Assignments
 7. []  Values
 
