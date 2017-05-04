@@ -6,7 +6,7 @@
 /*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 19:09:31 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/03 20:21:35 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/05/03 20:31:32 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	write_to_sock(int sock, const t_sytab *tab, const t_sycmp *cmp,
 
 t_sysel	*sy_select(const t_sytab *tab, const t_sycmp *cmp, uint32_t limit)
 {
+	int		sock;
 	t_sysel	*ret;
 	
 	if (!(ret = calloc(1, sizeof(*ret))))
