@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 13:50:53 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 18:49:11 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ typedef struct	s_db_head
 	uint8_t		ebyte;
 	uint8_t		x2a;
 
-	uint16_t	hd_len;
+	uint16_t	hd_blk;
+	uint32_t	bd_blk;
 
 	uint32_t	next_id;
 	uint32_t	next_off;

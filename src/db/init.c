@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 20:44:16 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/22 14:43:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 17:46:01 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int		db_init(const char *path)
 {
 	if ((fd = open(path, O_WRONLY, O_CREAT | O_EXCL | O_EXLOCK)) < 0)
 		return (1);
-	if (ftruncate(fd, 16 * 1024 * 1024) < 0)
+	if (ftruncate(fd, 4096) < 0)
 	{
 		close(fd);
 		return (2);
 	}
-	if (write(fd, HEAD, 12) <= 0)
+	if (write(fd, HEAD, 12) != 12)
 	{
 		close(fd);
 		return (3);

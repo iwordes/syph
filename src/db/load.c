@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 12:32:16 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/27 15:39:13 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 17:46:54 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	panic(t_db *db, int n)
 		munmap(db->map, db->size * 4096);
 	if (n > 1)
 		close(db->fd);
-	sy_error(g_emsg[n - 1]);
+	ERROR(g_emsg[n - 1]);
 	return (n);
 }
 

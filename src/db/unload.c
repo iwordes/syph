@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 12:35:47 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/22 14:10:05 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 19:07:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	db_unload(t_db *db)
 {
 	pthread_rwlock_destroy(&db->lock);
-	munmap(db->map, db->size * 4096);
+	munmap(db->map, (db->head->hd_blk + db->head->bd_blk) * 4096);
 	close(db->fd);
 }
