@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 14:58:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 16:46:18 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,51 +277,9 @@ typedef struct	s_req33
 	t_pair		cmp[255];
 	uint16_t	pad1;
 	U8			*cmp_val;
+
 	uint32_t	cnt;
 }				t_req33;
-
-/*
-** =============================================================================
-** Reqiter
-*/
-
-typedef struct	s_tabmat
-{
-	uint32_t	cnt;
-	t_pair		cmp[255];
-	uint8_t		pad1;
-	uint8_t		cmp_len;
-	U8			*cmp_val;
-}				t_tabmat;
-
-typedef struct	s_tabsel
-{
-	uint32_t	cnt;
-	t_pair		cmp[255];
-	uint8_t		pad1;
-	uint8_t		cmp_len;
-	U8			*cmp_val;
-
-	t_req31		*req;
-	uint32_t	i;
-}				t_tabsel;
-
-typedef struct	s_tabupd
-{
-	t_pair		cmp[255];
-	uint16_t	pad1;
-	U8			*cmp_val;
-
-	t_req32		req;
-	uint32_t	cnt;
-}				t_tabupd;
-
-typedef struct	s_tabdel
-{
-	t_pair		cmp[255];
-	uint16_t	pad1;
-	U8			*cmp_val;
-}				t_tabdel;
 
 typedef struct	s_getpair
 {

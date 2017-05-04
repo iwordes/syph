@@ -6,43 +6,55 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:23:44 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 13:34:29 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 16:40:52 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-#define C ts->req.cmp
-#define F ts->req.field
+#define C req->req.cmp
+#define F req->field
 
 #define CMP1 (tab_field(tab, C[i].id))
 #define CMP2 (ent + tab_foff(tab, C[i].id))
 
+#define OBT_LOC (ent + tab_foff(tab, req->field[f]))
+#define OBT_SIZE (tab_field(tab, F[i])->len * tab_field(tab, F[i])->size)
+
 #define CSIZE (tab_field(tab, C[i].id)->len * tab_field(tab, C[i].id)->size)
 
-#define SIZE (tab_field(tab, F[i])->len * tab_field(tab, F[i])->size)
-
-void	tab_select(t_tab *tab, U8 *ent, t_tabsel *ts)
+static bool		comp_(t_tab *tab, U8 *ent, t_req31 *req)
 {
+	t_cmpfn	*cmp;
+	U8		*val;
 	U8		i;
 
-	if (ts.i == ts.req.limit)
-		return ;
-
-	// Filtration
 	i = ~0;
-	val = ts->req.cmp_val;
-	while (++i < ts->req.cmp_len)
+	val = CV;
+	while (++i < req->cmp_len)
 	{
-		if (!ts->cmp[i](CMP1, CMP2, val))
-			return ;
+		if ((cmp = sy_cmp(req->cmp[i].id)) == NULL)
+			return (false);
+		if (!cmp(CMP1, CMP2, val))
+			return (false);
 		val += CSIZE;
 	}
+	return (true);
+}
 
-	// Selection
-	i = ~0;
-	while (++i < ts->req.field_len)
-		write(ts->sock, tab + tab_foff(tab, F[i]), SIZE);
+static bool		obtain_(t_tab *tab, U8 *ent, t_req31 *req)
+{
+	U8	f;
 
-	ts.i += 1;
+	f = ~0;
+	while (++f < req->field_len)
+		if (write(req->sock, OBT_LOC, OBT_SIZE) <= 0)
+			return (false);
+	return (true);
+}
+
+void			tab_select(t_tab *tab, U8 *ent, t_req31 *req)
+{
+	if (req->cnt < req->limit && comp_(tab, ent, req) && obtain_(tab, ent, req))
+		req->cnt += 1;
 }
