@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 16:46:18 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 16:51:47 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,8 @@ typedef struct	s_req31
 	t_pair		cmp[255];
 	uint16_t	pad2;
 	U8			*cmp_val;
+
+	uint32_t	cnt;
 }				t_req31;
 
 typedef struct	s_req32
@@ -280,6 +282,20 @@ typedef struct	s_req33
 
 	uint32_t	cnt;
 }				t_req33;
+
+/*
+** =============================================================================
+** Reqiter
+*/
+
+typedef struct	s_tabmat
+{
+	uint32_t	cnt;
+	t_pair		cmp[255];
+	uint8_t		pad1;
+	uint8_t		cmp_len;
+	U8			*cmp_val;
+}				t_tabmat;
 
 typedef struct	s_getpair
 {
@@ -353,9 +369,9 @@ off_t			tab_foff(t_tab *tab, uint8_t id);
 void			tab_foreach(t_tab *tab, void *fn, void *ctx);
 
 void			tab_match(t_tab *tab, uint8_t *ent, t_tabmat *t);
-void			tab_select(t_tab *tab, uint8_t *ent, t_tabsel *t);
-void			tab_update(t_tab *tab, uint8_t *ent, t_tabupd *t);
-void			tab_delete(t_tab *tab, uint8_t *ent, t_tabdel *t);
+void			tab_select(t_tab *tab, uint8_t *ent, t_req31 *req);
+void			tab_update(t_tab *tab, uint8_t *ent, t_req32 *req);
+void			tab_delete(t_tab *tab, uint8_t *ent, t_req33 *req);
 
 /*
 ** =============================================================================

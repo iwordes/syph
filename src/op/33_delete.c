@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/04 15:01:40 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 16:46:24 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 16:54:08 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	op_33_delete(int sock)
 		db_unlock();
 		return ;
 	}
-	foreach(p.tab, tab_delete, &req);
+	tab_foreach(p.tab, tab_delete, &req);
 
 	db_unlock();
 	write(sock, &req.cnt, 4);

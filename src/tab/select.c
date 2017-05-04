@@ -6,13 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:23:44 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 16:40:52 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 16:51:15 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-#define C req->req.cmp
+#define C req->cmp
 #define F req->field
 
 #define CMP1 (tab_field(tab, C[i].id))
@@ -30,7 +30,7 @@ static bool		comp_(t_tab *tab, U8 *ent, t_req31 *req)
 	U8		i;
 
 	i = ~0;
-	val = CV;
+	val = req->cmp_val;
 	while (++i < req->cmp_len)
 	{
 		if ((cmp = sy_cmp(req->cmp[i].id)) == NULL)
