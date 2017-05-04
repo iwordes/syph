@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:19:16 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 20:22:36 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 19:12:46 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@
 void	init_config(void)
 {
 	if (db_load("syph.db") != 0)
-		exit(DBE_LOAD);
+		FATAL("Could not load database \"syph.db\"!");
 }

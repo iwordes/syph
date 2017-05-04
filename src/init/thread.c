@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 15:42:58 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 20:23:00 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 19:12:29 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	init_thread(void)
 {
 	if ((g_mn.tp = tp_create(4, 64)) == NULL)
-		exit(DBE_TPOOL);
+		FATAL("Could not create thread pool!");
 }
