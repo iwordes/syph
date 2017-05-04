@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 16:01:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 18:35:47 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/05/03 20:16:15 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	sy_delete(const t_sytab *tab, const t_sycmp *cmp, uint32_t limit)
 	int			r;
 	uint32_t	tmp;
 
-	tmp = cmp->len;
+	tmp = cmp->len; //cmp->len is only one byte
 	if (tab->db->be)
 	{
 		limit = htonl(limit);
@@ -26,6 +26,7 @@ bool	sy_delete(const t_sytab *tab, const t_sycmp *cmp, uint32_t limit)
 	}
 	sock = sy__connit(tab->db);
 	write(sock, "\x33", 1);
+	write(sock, &tab->id, 4);/// seems like we should add the table id
 	write(sock, &limit, 4);
 	write(sock, &tmp, 4);
 	write(sock, cmp->cmp, cmp->len * sizeof(t_sypair));
