@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 13:54:21 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:28:53 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@
 # define ZALT(T, N) (T*)calloc(sizeof(T) * (N))
 # define RALT(M, T, N) (T*)realloc(M, sizeof(T) * (N))
 # define DRALT(M, T, N) (M = (T*)reallocf(M, sizeof(T) * (N)))
+
+# define MIN(N1, N2) (((N1) <= (N2)) ? (N1) : (N2))
 
 /*
 ** =============================================================================
@@ -222,10 +224,15 @@ typedef struct	s_req31
 	uint8_t		cmp_len;
 	uint8_t		order_len;
 
-	uint8_t		field[255];
 	uint8_t		*tab_start;
-	U32			offset[255];
+	uint8_t		field[255];
+	t_pair		cmp[255];
+	uint8_t		pad1__[3];
 	U8			*entry;
+	U32			offset[255];
+	U32			pad2;
+
+	U8			*cmp_val;
 }				t_req31;
 
 typedef struct	s_req32
@@ -333,7 +340,7 @@ void			op_32_update(int sock);
 void			op_33_delete(int sock);
 
 bool			op_40_equ(t_field *meta, U8 *lhs, U8 *rhs);
-bool			op_40_neq(t_field *meta, U8 *lhs, U8 *rhs);
+bool			op_41_neq(t_field *meta, U8 *lhs, U8 *rhs);
 
 void			op_50_set(t_field *meta, U8 *lhs, U8 *rhs);
 
@@ -372,7 +379,7 @@ void			sy_error(const char *msg, const char *file, long line);
 void			sy_fatal(const char *msg, const char *file, long line);
 void			sy_log(const char *msg);
 
-void			sy_getpair(t_getpair *p, U8 len, t_pair pair[255], U8 **val);
+int				sy_getpair(t_getpair p, U8 len, t_pair pair[255], U8 **val);
 
 bool			sy_read(int fd, void *buff, ssize_t n);
 

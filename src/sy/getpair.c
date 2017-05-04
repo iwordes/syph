@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:25:05 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 19:27:22 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:25:56 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define SIZE (f->size * f->len)
 
-void	sy_getpair(t_getpair p, U8 len, t_pair pair[255], U8 **val)
+int		sy_getpair(t_getpair p, U8 len, t_pair pair[255], U8 **val)
 {
 	size_t	mem;
 	size_t	off;
