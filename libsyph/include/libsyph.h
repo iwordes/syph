@@ -6,17 +6,18 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 13:53:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 17:28:25 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 18:40:46 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBSYPH_H
 # define LIBSYPH_H
 
+# include <stdbool.h>
 # include <arpa/inet.h>
 # include <unistd.h>
+# include <string.h>
 
-const t_sytype	g_sytype[11];
 
 /*
 ** =============================================================================
@@ -37,10 +38,24 @@ typedef struct	s_sypair
 typedef struct	s_syph
 {
 	uint8_t		ip[4];
-	uint16_t	port
+	uint16_t	port;
 
 	bool		be;
 }				t_syph;
+
+typedef struct	s_syfield
+{
+	uint8_t		type;
+
+	uint8_t		f_pad_: 7;
+	uint8_t		f_unique: 1;
+
+	/*
+	** The user does not need to provided the size field when creating a table.
+	*/
+	uint16_t	size;
+	uint32_t	len;
+}				t_syfield;
 
 typedef struct	s_sytab
 {
@@ -59,20 +74,6 @@ typedef struct	s_sytab
 	uint32_t	id;
 	uint32_t	ent_size;
 }				t_sytab;
-
-typedef struct	s_syfield
-{
-	uint8_t		type;
-
-	uint8_t		f_pad_: 7;
-	uint8_t		f_unique: 1;
-
-	/*
-	** The user does not need to provided the size field when creating a table.
-	*/
-	uint16_t	size;
-	uint32_t	len;
-}				t_syfield;
 
 typedef struct	s_sycmp
 {
@@ -125,6 +126,8 @@ typedef struct	s_sytype
 # define SYT_F32  0x10
 # define SYT_F64  0x11
 
+const t_sytype	g_sytype[11];
+
 /*
 ** =============================================================================
 ** Functions
@@ -134,9 +137,13 @@ t_syph			sy_connect(uint8_t ip[4], uint16_t port);
 
 bool			sy_create(t_sytab *tab);
 
-bool			sy_insert(t_sytab *tab, uint32_t len, void *data);
+bool			sy_insert(const t_sytab *tab, uint32_t len, void *data);
 t_sysel			*sy_select(t_sytab *tab, t_sycmp *cmp);
 bool			sy_update(t_sytab *tab, t_sycmp *cmp, t_syasn *asn);
-bool			sy_delete(t_sytab *tab, t_sycmp *cmp);
+bool			sy_delete(const t_sytab *tab, const t_sycmp *cmp, uint32_t limit);
+
+//TODO: Functions to create
+int				sy__connit(t_syph *syph);
+ssize_t			sy__read(int fd, void *mem, ssize_t n);
 
 #endif
