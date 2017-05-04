@@ -1,12 +1,12 @@
 NAME    = syphd
 VERSION = 0.1.0
 
-LIBS   := arg
+LIBS   := arg tp
 
 CC      = gcc
 CF     += -Wall -Wextra -Werror
-CF     += -I include
-CF     += $(foreach lib,$(LIBS),-I lib/$(lib)/include -L lib/$(lib) -l$(lib))
+CF     += -I include -I lib/arg -I lib/tp/include
+CF     += $(foreach lib,$(LIBS),-L lib/$(lib) -l$(lib))
 
 include src.mk
 
@@ -28,5 +28,10 @@ re: fclean all
 
 # ==============================================================================
 
-$(NAME): $(SRC)
+LIBS := $(addsuffix .a,$(LIB))
+
+$(NAME): $(SRC) $(LIBS)
 	$(CC) $(CF) -o $@ $(SRC)
+
+%.a:
+	make -C $(@D)

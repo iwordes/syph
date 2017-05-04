@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 19:10:37 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 20:19:20 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 # define SYPH_H
 
 # include <arpa/inet.h>
+# include <fcntl.h>
 # include <signal.h>
 # include <stdio.h>
+# include <strings.h>
+# include <sys/mman.h>
 # include <sys/socket.h>
 # include <unistd.h>
 
 # include <libarg.h>
 # include <libtp.h>
+
+# define DB g_mn.db
+# define DBH DB.head
 
 # define TAB_HD_BLK 1
 # define TAB_BD_BLK (1024 * 1024) / 4096
@@ -99,7 +105,6 @@ typedef struct	s_db_head
 	uint32_t	next_off;
 
 	uint32_t	table_cnt;
-	uint32_t	table[2];
 }				t_db_head;
 
 typedef struct	s_field
@@ -143,7 +148,7 @@ typedef struct	s_db
 
 	uint32_t	tlen;
 	uint32_t	tmem;
-	t_tbl_head	**tbl;
+	t_tab		**tab;
 }				t_db;
 
 typedef struct	s_main
@@ -151,12 +156,33 @@ typedef struct	s_main
 	t_db		db;
 	t_tp		*tp;
 
+	int			sock;
 	int			log;
+
+	uint16_t	port;
 
 	int			e;
 
 	bool		bg;
 }				t_main;
+
+typedef struct	s_op
+{
+	uint8_t		op;
+	void		(*fn)(int);
+}				t_op;
+
+typedef struct	s_cmp
+{
+	uint8_t		op;
+	bool		(*fn)(t_field*, U8*, U8*);
+}				t_cmp;
+
+typedef struct	s_asn
+{
+	uint8_t		op;
+	void		(*fn)(t_field*, U8*, U8*);
+}				t_asn;
 
 /*
 ** =============================================================================
@@ -213,6 +239,12 @@ typedef struct	s_req33
 ** Reqiter
 */
 
+typedef struct	s_pair
+{
+	U8			op;
+	U8			id;
+}				t_pair;
+
 typedef struct	s_tabmat
 {
 	uint32_t	cnt;
@@ -256,26 +288,30 @@ typedef struct	s_getpair
 	int			sock;
 }				t_getpair;
 
-typedef struct	s_pair
-{
-	U8			op;
-	U8			id;
-}				t_pair;
-
 /*
 ** =============================================================================
 ** Main
 */
 
 void			init(int *argc, char ***argv);
-void			uninit(void);
+void			loop(void);
+void			uninit(int z);
+
+t_main			g_mn;
 
 /*
 ** =============================================================================
 ** Database
 */
 
-// ...
+bool			db_grow(uint32_t at, uint32_t skip);
+int				db_init(const char *path);
+int				db_load(const char *path);
+void			db_rlock(void);
+void			db_unload(void);
+void			db_unlock(void);
+void			db_wlock(void);
+
 
 /*
 ** =============================================================================
@@ -316,6 +352,17 @@ void			op_ff_ping(int sock);
 ** Syph
 */
 
-// ...
+void			init_config(void);
+void			init_signal(void);
+void			init_socket(void);
+void			init_thread(void);
+
+void			sy_error(const char *msg, const char *file, long line);
+void			sy_fatal(const char *msg, const char *file, long line);
+void			sy_log(const char *msg);
+
+void			sy_getpair(t_getpair *p, U8 len, t_pair pair[255], U8 **val);
+
+bool			sy_read(int fd, void *buff, ssize_t n);
 
 #endif

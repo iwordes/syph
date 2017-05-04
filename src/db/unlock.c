@@ -6,11 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 14:16:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 20:12:13 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 20:18:57 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <syph.h>
+
 void	db_unlock(void)
 {
-	tp_rwunlock(&g_mn.db.lock);
+	tp_rwunlock(&DB.lock);
 }

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:52 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 20:19:34 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 19:28:43 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_main	g_mn;
 
 int		main(int argc, char **argv)
 {
-	init(&argc, &argv, g_arg);
+	init(&argc, &argv);
 	loop();
 	uninit(0);
 }

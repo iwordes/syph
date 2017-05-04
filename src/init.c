@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:33:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 19:11:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 19:25:13 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_init(int *argc, char ***argv)
 
 void	init(int *argc, char ***argv)
 {
-	init_init();
+	init_init(argc, argv);
 	sy_log("Starting...");
 	init_config();
 	init_thread();
