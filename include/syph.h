@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 12:33:57 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 13:54:21 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct	s_tab
 	uint32_t	len;
 
 	uint32_t	next_id;
-	uint32_t	entry_size;
+	uint32_t	ent_size;
 
 	uint32_t	bd_blk;
 	uint16_t	hd_blk;
@@ -193,6 +193,12 @@ typedef struct	s_asn
 ** Requests
 */
 
+typedef struct	s_pair
+{
+	U8			op;
+	U8			id;
+}				t_pair;
+
 typedef struct	s_req21
 {
 	U8			label[33];
@@ -242,12 +248,6 @@ typedef struct	s_req33
 ** =============================================================================
 ** Reqiter
 */
-
-typedef struct	s_pair
-{
-	U8			op;
-	U8			id;
-}				t_pair;
 
 typedef struct	s_tabmat
 {
@@ -347,6 +347,7 @@ void			op_ff_ping(int sock);
 t_tab			*table(uint32_t id);
 t_tab			*tab_by_label(uint8_t label[33]);
 
+uint8_t			*tab_ent(t_tab *tab, uint32_t id);
 t_field			*tab_field(t_tab *tab, uint8_t id);
 off_t			tab_foff(t_tab *tab, uint8_t id);
 

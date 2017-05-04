@@ -6,67 +6,79 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/29 12:13:22 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 13:56:54 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <push_swap.h>
+#include <syph.h>
 
-// Perform a single entry insertion on a table.
+#define END(R) { end_(sock, R); return ; }
 
-static int	insert1(int sock, t_req30 *req)
+static void	end_(int sock, uint32_t res)
 {
-	// 1. Allocate (zeroed) space for new entry in table
-	// ...
-
-	// 2. Locate new entry
-	id = /* tbl_ */;
-
-	// 3. Overwrite entry with new values
-	i = 0;
-	while (i < req->field_len)
-		/* tbl_set_raw */(req->tid, id, req->field[i++], sock);
-
-	// 4. Update table next-vals
-
-	return (0);
+	write(sock, &res, 4);
+	db_unlock();
 }
 
-void	op_32_insert(int sock)
+#define F (req->field[f])
+#define ENT_FIELD (ent + tab_foff(tab, F))
+#define FIELD_SIZ (tab_field(tab, F)->size * tab_field(tab, F)->len)
+
+static bool	ins1(t_tab *tab, t_req30 *req, int sock, uint32_t i)
 {
+	uint8_t		*ent;
+	uint8_t		f;
+
+	f = ~0;
+	ent = tab_ent(tab, ~0);
+	while (++f < req->field_len)
+		if (!sy_read(sock, ENT_FIELD, FIELD_SIZ))
+		{
+			ent -= i * tab->ent_size;
+			bzero(ent, (i + 1) * tab->ent_size);
+			tab->len -= i;
+			return (false);
+		}
+	*(U32*)ent = tab->next_id++;
+	tab->len += 1;
+	return (true);
+}
+
+static bool	chk_cost(t_tab *tab, t_req30 *req)
+{
+	uint32_t	at;
+
+	if ((tab->len + 1 + req->limit) * tab->ent_size > tab->bd_blk * 4096)
+	{
+		at = ((void*)tab - (void*)DB.map) / 4096;
+		if (!db_grow(at, tab->bd_blk))
+			return (false);
+		tab->bd_blk *= 2;
+	}
+	return (true);
+}
+
+void		op_30_insert(int sock)
+{
+	t_tab		*tab;
 	t_req30		req;
-	t_tbl_head	*tbl;
 	uint32_t	i;
 
+	sy_read(sock, &req, 10);
+	sy_read(sock, &req.field, req.field_len);
 
-	// 1. Read request.
-	// TODO: Error after all reads if any failed
-	read(sock, &req.tid, 4);
-	read(sock, &req.field_len, 1);
-	read(sock, &req.field, req.field_len);
-	read(sock, &req.entry_len, 4);
+	db_wlock();
 
+	if ((tab = table(req.tid)) == NULL)
+		END(0);
 
-	// 2. Allocate space in table for new entries.
-	if (tbl_grow(req.tid, req.entry_len) != 0)
-	{
-		error(/* ? */);
-		return ;
-	}
+	if (!chk_cost(tab, &req))
+		END(0);
 
+	for (i = 0; i < req.limit; i++)
+		if (!ins1(tab, &req, sock, i))
+			break ;
 
-	// 3. Insert entries.
-	i = 0;
-	while (i < e_len)
-	{
-		tbl_write(sock, &req, table(req->tid)->len + i);
-		i += 1;
-	}
-
-	// 4. Update the table metadata.
-	table(req->tid)->next_id += req.entry_len;
-	table(req->tid)->len += req.entry_len;
-
-	// 3. Return the number of entries inserted.
-	write(sock, &i, 4);
+	write(sock, &req.limit, 4);
+	db_unlock();
 }
