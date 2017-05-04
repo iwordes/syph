@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/09 09:47:10 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/12 12:42:23 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 20:27:25 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	done_(t_tp *tp)
 {
-	tp_lock(&WORQ.lock);
+	tp_mlock(&WORQ.lock);
 	WORQ.undone -= 1;
 	if (WORQ.undone == 0)
 		tp_evfire(&WORQ.ev_done);
-	tp_unlock(&WORQ.lock);
+	tp_munlock(&WORQ.lock);
 }
 
 void	*tp__work_loop(t_tp *tp)

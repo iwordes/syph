@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 20:01:19 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/22 14:26:36 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 20:36:27 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,13 @@ void			tp_qwait(t_tp *tp);
 void			tp_evfire(t_tp_evt *ev);
 void			tp_evwait(t_tp_evt *ev, t_tp_mut *lock);
 
-/*
-** TODO: Cleanup/conversion -> mlock
-bool			tp_lock(t_tp_mut *lock);
-bool			tp_locked(t_tp_mut *lock);
-void			tp_unlock(t_tp_mut *lock);
-*/
-
-void			tp_mlock(t_tp_mut *lock);
+bool			tp_mlock(t_tp_mut *lock);
 void			tp_mlocked(t_tp_mut *lock);
 void			tp_munlock(t_tp_mut *lock);
 
-void			tp_slock_r(t_tp_rwl *lock);
-void			tp_slock_w(t_tp_rwl *lock);
-void			tp_sunlock(t_tp_rwl *lock);
+bool			tp_rlock(t_tp_rwl *lock);
+bool			tp_wlock(t_tp_rwl *lock);
+void			tp_rwunlock(t_tp_rwl *lock);
 
 int				tp_ncore(void);
 

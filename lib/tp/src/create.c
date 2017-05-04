@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/08 20:09:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/12 14:07:48 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 20:31:40 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,9 @@ t_tp	*qpanic_(t_tp *tp, int flag)
 
 t_tp	*tpanic_(t_tp *tp, unsigned n)
 {
-	t_tp_job	ex;
 	unsigned	i;
 
 	i = 0;
-	ex.ctx = NULL;
-	ex.fn = tp__kill_thread;
 	while (i < n)
 	{
 		tp_qpush(tp, tp__kill_thread, NULL);

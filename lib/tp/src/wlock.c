@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unlock.c                                           :+:      :+:    :+:   */
+/*   wlock.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/08 18:28:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/09 20:08:07 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/03 20:23:00 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/03 20:36:59 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libtp_.h>
+#include <libtp.h>
 
-void	tp_munlock(t_tp_mut *lock)
+bool	tp_wlock(t_tp_rwl *lock)
 {
-	pthread_mutex_unlock(lock);
+	return (pthread_rwlock_wrlock(lock) == 0);
 }

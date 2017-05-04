@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unlock.c                                           :+:      :+:    :+:   */
+/*   rwunlock.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/08 18:28:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/09 20:08:07 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/03 20:23:39 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/03 20:37:03 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libtp_.h>
+#include <libtp.h>
 
-void	tp_munlock(t_tp_mut *lock)
+void	tp_rwunlock(t_tp_rwl *lock)
 {
-	pthread_mutex_unlock(lock);
+	pthread_rwlock_unlock(lock);
 }

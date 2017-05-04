@@ -7,9 +7,9 @@ CF   += -I include
 HEAD := $(addprefix include/,libtp.h libtp_.h)
 
 SRC  := bzero.c kill_thread.c work_loop.c zalloc.c
-SRC  += create.c exec_queue_add.c wait_for_queue.c
-SRC  += get_nbr_proc.c
-SRC  += destroy.c evfire.c evwait.c lock.c locked.c unlock.c ncpu.c
+SRC  += create.c destroy.c
+SRC  += evfire.c evwait.c
+SRC  += mlock.c munlock.c rlock.c wlock.c rwunlock.c
 SRC  += qpop.c qpush.c qwait.c
 OBJ  := $(addprefix build/,$(SRC:.c=.o))
 SRC  := $(addprefix src/,$(SRC))

@@ -16,12 +16,12 @@ t_tp_job	tp_qpop(t_tp *tp)
 {
 	t_tp_job	job;
 
-	tp_lock(&WORQ.lock);
+	tp_mlock(&WORQ.lock);
 	while (WORQ.len == 0)
 		tp_evwait(&WORQ.ev_new, &WORQ.lock);
 	WORQ.len -= 1;
 	job = WORQ.q[WORQ.f];
 	WORQ.f = (WORQ.f + 1) % WORQ.max;
-	tp_unlock(&WORQ.lock);
+	tp_munlock(&WORQ.lock);
 	return (job);
 }

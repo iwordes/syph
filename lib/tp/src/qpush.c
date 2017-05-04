@@ -14,10 +14,10 @@
 
 bool	tp_qpush(t_tp *tp, void *job, void *ctx)
 {
-	tp_lock(&WORQ.lock);
+	tp_mlock(&WORQ.lock);
 	if (WORQ.len == WORQ.max)
 	{
-		tp_unlock(&WORQ.lock);
+		tp_munlock(&WORQ.lock);
 		return (false);
 	}
 	WORQ.len += 1;
@@ -26,6 +26,6 @@ bool	tp_qpush(t_tp *tp, void *job, void *ctx)
 	WORQ.q[WORQ.b].ctx = ctx;
 	WORQ.b = (WORQ.b + 1) % WORQ.max;
 	tp_evfire(&WORQ.ev_new);
-	tp_unlock(&WORQ.lock);
+	tp_munlock(&WORQ.lock);
 	return (true);
 }

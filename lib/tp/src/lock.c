@@ -12,7 +12,7 @@
 
 #include <libtp_.h>
 
-bool	tp_lock(t_tp_mut *lock)
+bool	tp_mlock(t_tp_mut *lock)
 {
 	return (pthread_mutex_lock(lock) == 0);
 }
