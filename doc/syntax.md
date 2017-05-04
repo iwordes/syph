@@ -1,3 +1,9 @@
+Create
+------
+1. u8[] Label
+2. u8   Schema len
+3. []   Schema
+
 Insert
 ------
 1. u32  Table ID

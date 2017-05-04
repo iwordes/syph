@@ -20,7 +20,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-.PHONY: re:
+.PHONY: re
 re: fclean all
 
 $(NAME): $(OBJ)
