@@ -6,13 +6,15 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 14:57:03 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 14:57:35 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 18:40:13 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libsyph.h>
 
-int		sy__connit(t_db *db)
+int		sy__connit(t_syph *db)
 {
+	(void)db;
+	return (0);
 	// ...
 }

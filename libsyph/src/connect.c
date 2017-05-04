@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 14:46:30 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 16:38:43 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 17:49:02 by kdavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 t_syph		sy_connect(uint8_t ip[4], uint16_t port)
 {
-	t_syph	syph;
+	t_syph		syph;
+	int			sock;
 
 	bzero(&syph, sizeof(syph));
 	syph.port = port;
