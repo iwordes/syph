@@ -6,15 +6,11 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:15:24 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/02 15:27:19 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 12:34:11 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
-
-/*
-** TODO: Handle comparisons
-*/
 
 void	tab_match(t_tab *tab, U8 *ent, t_tabmat *tm)
 {

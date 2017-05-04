@@ -6,15 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/30 18:20:03 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 12:25:06 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-#define THEAD t_tab
-
-static THEAD	g_init_head =
+static t_tab	g_init_head =
 {
 	~0,
 	0,
@@ -30,33 +28,37 @@ static THEAD	g_init_head =
 	~0
 };
 
-static int		panic(int n)
+static void		tab__init(int sock, t_tab *tab, t_req21 *req)
 {
-	db_unlock();
-	return (n);
+	*tab = g_init_head;
+	tab->id = DBH->next_id;
+	tab->schema_len = req->schema_len;
+	memcpy(tab->label, req->label, 32);
+	sy_read(sock, tab + 1, sizeof(t_field) * req->schema_len);
 }
 
-# define DHEAD g_mn.db.head
-
-int				op_21_create(const U8 label[33], U8 schema_len, t_field *schema)
+static void		end_(int sock, uint32_t res)
 {
-	t_tab	*tab;
+	write(sock, &res, 4);
+	db_unlock();
+}
+
+#define END(R) { end_(sock, R); return ; }
+
+void			op_21_create(int sock)
+{
+	t_tab		*tab;
 	t_req21		req;
 
 	sy_read(sock, &req, sizeof(req));
 	db_wlock();
-	if (tab_by_label(req.label) != NULL)
-		PANIC(1);
-	if (db_grow(DHEAD->next_off + 1 + BD_BLK_DFL))
-		PANIC(2);
-	tab = (t_tab*)(map + DHEAD->next_off * 4096);
-	*tab = g_init_head;
-	memcpy(tab->label, req.label, 32);
-	tab->id = DHEAD->next_id;
-	tab->schema_len = req.schema_len;
-	sy_read(sock, tab + 1, sizeof(t_field) * req.schema_len);
-	DHEAD->next_id += 1;
-	DHEAD->next_off += TAB_HD_BLK + TAB_BD_BLK;
-	db_unlock();
-	return (0);
+	if ((tab = tab_by_label(req.label)) != NULL)
+		END(tab->id);
+	if (!db_grow(DB_BLK, TAB_BLK))
+		END(0);
+	tab = db_blk(DBH->next_off);
+	tab__init(sock, tab, &req);
+	DBH->next_id += 1;
+	DBH->next_off += TAB_BLK;
+	end_(sock, tab->id);
 }

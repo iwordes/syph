@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 20:19:20 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 12:33:57 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@
 # define DB g_mn.db
 # define DBH DB.head
 
+# define DB_BLK (DBH->hd_blk + DBH->bd_blk)
+
 # define TAB_HD_BLK 1
 # define TAB_BD_BLK (1024 * 1024) / 4096
+
+# define TAB_BLK (TAB_HD_BLK + TAB_BD_BLK)
 
 # ifdef __BIG_ENDIAN__
 #  define EBYTE 0xff
@@ -304,6 +308,8 @@ t_main			g_mn;
 ** Database
 */
 
+void			*db_blk(uint32_t at);
+
 bool			db_grow(uint32_t at, uint32_t skip);
 int				db_init(const char *path);
 int				db_load(const char *path);
@@ -335,17 +341,21 @@ void			op_ff_ping(int sock);
 
 /*
 ** =============================================================================
-** Request
+** Table
 */
 
-// ...
+t_tab			*table(uint32_t id);
+t_tab			*tab_by_label(uint8_t label[33]);
 
-/*
-** =============================================================================
-** Response
-*/
+t_field			*tab_field(t_tab *tab, uint8_t id);
+off_t			tab_foff(t_tab *tab, uint8_t id);
 
-// ...
+void			tab_foreach(t_tab *tab, void *fn, void *ctx);
+
+void			tab_match(t_tab *tab, uint8_t *ent, t_tabmat *t);
+void			tab_select(t_tab *tab, uint8_t *ent, t_tabsel *t);
+void			tab_update(t_tab *tab, uint8_t *ent, t_tabupd *t);
+void			tab_delete(t_tab *tab, uint8_t *ent, t_tabdel *t);
 
 /*
 ** =============================================================================
