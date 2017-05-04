@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 18:49:11 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/03 19:10:37 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,32 +82,6 @@
 
 # define DBE_READ DBE_RECV
 # define DBE_WRITE DBE_SEND
-
-/*
-** =============================================================================
-** Conversion
-*/
-
-# ifdef __BIG_ENDIAN__
-#  define H64N(N) (N)
-#  define N64H(N) (N)
-# else
-// TODO
-#  define H64N1(N) ((N & 0xff) << 56) | ((N & 0xff00) << 48)
-#  define H64N2(N) ((N & 0xff0000) << 40) | ((N & 0xff000000) << 8)
-#  define H64N3(N) ((N & (255 << 32)) >> 8) | ((N & (255 << 40)) >> 16)
-#  define H64N4(N) ((N & (255 << 56)) >> 56) | (N & (255 << 48) >> 40)
-// TODO
-
-#  define H64N(N) ((H64N1(N) | H64N2(N) | H64N3(N) | H64N4(N)))
-#  define N64H(N) H64N(N)
-# endif
-
-# define H32N(N) htonl(N)
-# define N32H(N) ntohl(N)
-# define H16N(N) htons(N)
-# define N16H(N) ntohs(N)
-
 /*
 ** =============================================================================
 ** Datatypes
@@ -157,6 +131,7 @@ typedef struct	s_tab
 
 typedef struct	s_db
 {
+	char		*name;
 	uint8_t		*map;
 	size_t		size;
 	int			fd;
