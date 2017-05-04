@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:25:05 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 14:25:56 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:55:51 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		sy_getpair(t_getpair p, U8 len, t_pair pair[255], U8 **val)
 	off = 0;
 	mem = 4096;
 	sy_read(p.sock, pair, len * 2);
-	if ((*val = MALT(U8, 4096)) == NULL)
+	if ((*val = ZALT(U8, 4096)) == NULL)
 	{
 		ERROR("OOM");
 		return (1);

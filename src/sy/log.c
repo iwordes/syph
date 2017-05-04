@@ -6,13 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 20:01:58 by iwordes           #+#    #+#             */
-/*   Updated: 2017/04/19 20:17:59 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 15:00:07 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-int		sy_log(const char *msg, const char *file, int line)
+void	sy_log(const char *msg)
 {
-	dprintf(g_mn.log, "[%lu] %s:% %s\n", time(NULL), msg);
+	dprintf(g_mn.log, "[%lu] %s\n", time(NULL), msg);
 }

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:29:20 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 11:33:53 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:34:45 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void	tab_update(t_tab *tab, U8 *ent, t_tabupd *tu)
 		tu->req.assign[i](ASN1, ASN2, val);
 		val += ASIZE;
 	}
+	tu->cnt += 1;
 }

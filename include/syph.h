@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 14:28:53 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 14:58:04 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <strings.h>
 # include <sys/mman.h>
 # include <sys/socket.h>
+# include <time.h>
 # include <unistd.h>
 
 # include <libarg.h>
@@ -54,7 +55,7 @@
 
 # define TAB_BD(T) ((uint8_t*)(T) + (T)->hd_blk * 4096)
 
-# define ZALT(T, N) (T*)calloc(sizeof(T) * (N))
+# define ZALT(T, N) (T*)calloc((N), sizeof(T))
 # define RALT(M, T, N) (T*)realloc(M, sizeof(T) * (N))
 # define DRALT(M, T, N) (M = (T*)reallocf(M, sizeof(T) * (N)))
 
@@ -74,6 +75,24 @@
 # define U16 uint16_t
 # define U32 uint32_t
 # define U64 uint64_t
+
+/*
+** =============================================================================
+** Type codes
+*/
+
+# define SYT_U8   0x00
+# define SYT_U16  0x01
+# define SYT_U32  0x02
+# define SYT_U64  0x03
+# define SYT_I8   0x04
+# define SYT_I16  0x05
+# define SYT_I32  0x06
+# define SYT_I64  0x07
+# define SYT_UTF8 0x0d
+
+# define SYT_F32  0x10
+# define SYT_F64  0x11
 
 /*
 ** =============================================================================
@@ -224,31 +243,41 @@ typedef struct	s_req31
 	uint8_t		cmp_len;
 	uint8_t		order_len;
 
-	uint8_t		*tab_start;
 	uint8_t		field[255];
-	t_pair		cmp[255];
-	uint8_t		pad1__[3];
-	U8			*entry;
-	U32			offset[255];
-	U32			pad2;
+	uint8_t		pad1;
 
+	t_pair		cmp[255];
+	uint16_t	pad2;
 	U8			*cmp_val;
 }				t_req31;
 
 typedef struct	s_req32
 {
 	uint32_t	tid;
-	uint8_t		cond_len;
-	uint8_t		assign_len;
+	uint8_t		cmp_len;
+	uint8_t		asn_len;
 
+	t_pair		cmp[255];
+	uint16_t	pad1;
+	U8			*cmp_val;
 
+	t_pair		asn[255];
+	uint16_t	pad2;
+	U8			*asn_val;
+
+	uint32_t	cnt;
 }				t_req32;
 
 typedef struct	s_req33
 {
 	uint32_t	tid;
 	uint32_t	limit;
-	uint8_t		cond_len;
+	uint8_t		cmp_len;
+
+	t_pair		cmp[255];
+	uint16_t	pad1;
+	U8			*cmp_val;
+	uint32_t	cnt;
 }				t_req33;
 
 /*
@@ -284,6 +313,7 @@ typedef struct	s_tabupd
 	U8			*cmp_val;
 
 	t_req32		req;
+	uint32_t	cnt;
 }				t_tabupd;
 
 typedef struct	s_tabdel
@@ -309,6 +339,10 @@ void			loop(void);
 void			uninit(int z);
 
 t_main			g_mn;
+
+t_op			g_op[8];
+t_asn			g_asn[2];
+t_cmp			g_cmp[3];
 
 /*
 ** =============================================================================
