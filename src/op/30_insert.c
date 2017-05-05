@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 11:45:10 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 12:36:54 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static bool		ins1(t_tab *tab, t_req30 *req, int sock, uint32_t i)
 		{
 			ERROR("Could not read into entry!");
 			printf("%d: %s\n", errno, strerror(errno));
-			printf("%p + %lld\n", ent, tab_foff(tab, F));
 
 			ent -= i * tab->ent_size;
 			bzero(ent, (i + 1) * tab->ent_size);
