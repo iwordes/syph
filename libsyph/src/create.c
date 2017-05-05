@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 14:48:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 18:37:45 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/05/05 12:31:11 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ bool		sy_create(t_sytab *tab)
 
 	sock = sy__connit(tab->db);
 	write(sock, "\x21", 1);
-	write(sock, tab, 34 + (tab->schema_len * sizeof(t_syfield)));
+	write(sock, tab->label, 33);
+	write(sock, &tab->schema_len, 1);
+	write(sock, tab->schema, tab->schema_len * sizeof(t_syfield));
 	r = sy__read(sock, &tab->id, 4);
 	close(sock);
 	i = ~0;
