@@ -6,7 +6,7 @@
 /*   By: kdavis <kdavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 20:23:30 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/04 21:30:51 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 21:35:23 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	pls_send(int sock, t_sytab *tab, t_sycmp *cmp, t_syasn *asn)
 {
 	write(sock, "\x32", 1);
+	write(sock, &tab->id, 4);
 	write(sock, &cmp->len, 1);
 	write(sock, &asn->len, 1);
 	write(sock, cmp->cmp, cmp->len * 2);
@@ -32,7 +33,7 @@ bool		sy_update(t_sytab *tab, t_sycmp *cmp, t_syasn *asn)
 	if ((sock = sy__connit(tab->db)) < 0)
 		return (false);
 	pls_send(sock, tab, cmp, asn);
-	r = sy_read(sock, &cnt, 4);
+	r = sy__read(sock, &cnt, 4);
 	close(sock);
 	return (r == 4);
 }

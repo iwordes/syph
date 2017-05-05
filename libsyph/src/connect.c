@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 14:46:30 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 20:45:25 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 21:32:19 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 bool	sy_connect(t_syph *syph)
 {
-	t_syph		syph;
 	int			sock;
 
-	if ((sock = sy__connit(&syph)) < 0)
+	if ((sock = sy__connit(syph)) < 0)
 		return (false);
 	write(sock, "\xff", 1);
-	read(sock, &syph.be, 1);
-	syph.be = !!syph.be;
+	read(sock, &syph->be, 1);
+	syph->be = !!syph->be;
 	close(sock);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 13:53:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 20:45:48 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 21:39:26 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ typedef struct	s_syfield
 {
 	uint8_t		type;
 
-	uint8_t		f_pad_: 7;
-	uint8_t		f_unique: 1;
+	uint8_t		flags;
 
 	/*
 	** The user does not need to provided the size field when creating a table.
@@ -101,8 +100,13 @@ typedef struct	s_syasn
 
 typedef struct	s_sysel
 {
+	uint32_t	limit;
+
 	uint32_t	cnt;
+	t_sytab		*tab;
 	void		*data;
+
+	t_sycmp		cmp;
 }				t_sysel;
 
 /*
@@ -140,6 +144,19 @@ const t_sytype	g_sytype[11];
 # define SYF_UNIQ 1
 
 /*
+** Comparisons
+*/
+
+# define SYC_EQU 0x40
+# define SYC_NEQ 0x41
+
+/*
+** Assignments
+*/
+
+# define SYA_SET 0x50
+
+/*
 ** =============================================================================
 ** Functions
 */
@@ -149,11 +166,10 @@ bool			sy_connect(t_syph *syph);
 bool			sy_create(t_sytab *tab);
 
 bool			sy_insert(const t_sytab *tab, uint32_t len, void *data);
-t_sysel			*sy_select(t_sytab *tab, t_sycmp *cmp);
+bool			sy_select(t_sysel *sel);
 bool			sy_update(t_sytab *tab, t_sycmp *cmp, t_syasn *asn);
 bool			sy_delete(const t_sytab *tab, const t_sycmp *cmp, uint32_t limit);
 
-//TODO: Functions to create
 int				sy__connit(t_syph *syph);
 ssize_t			sy__read(int fd, void *mem, ssize_t n);
 

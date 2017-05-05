@@ -1,4 +1,5 @@
 #include <libsyph.h>
+#include <stdio.h>
 
 typedef struct	User
 {
@@ -45,7 +46,7 @@ int				main()
 		return (1);
 
 	tab_user.db = &sy;
-	if (!sy_create(&tab))
+	if (!sy_create(&tab_user))
 		return (2);
 
 	for (int i = 0; i < 3; i++)
@@ -81,7 +82,7 @@ int				main()
 	for (int i = 0; i < 3; i++)
 		printf("%.2d\t%8s\t%-s\n", Users[i].id, Users[i].name, Users[i].pass);
 
-	if (!sy_delete(&tab_user, 3, &cmp))
+	if (!sy_delete(&tab_user, &cmp, 3))
 		return (6);
 
 	return (0);
