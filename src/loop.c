@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 15:53:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 15:01:14 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 18:48:53 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,11 @@ void		loop(void)
 	while (1)
 	{
 		if ((in = accept(g_mn.sock, (void*)&sa_inc, &l)) < 0)
-			sy_log("Failed to accept connection.");
+			sy_log("Could not accept connection.");
 		else
+		{
+			sy_log("Connection established from: PLACEHOLDER");
 			tp_qpush(g_mn.tp, req_recv, (void*)in);
+		}
 	}
 }

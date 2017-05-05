@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:39:20 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 18:37:12 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 18:46:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_socket(void)
 	g_mn.sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (g_mn.sock < 0)
 		FATAL("Could not open socket!");
-	sa.sin_port = g_mn.port;
+	sa.sin_port = htons(g_mn.port);
 	sa.sin_family = AF_INET;
 	sa.sin_addr.s_addr = INADDR_ANY;
 	if (bind(g_mn.sock, (void*)&sa, sizeof(sa)) < 0)

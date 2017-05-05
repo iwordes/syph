@@ -4,7 +4,7 @@
  --- | Table
   20 | List (later)
   21 | Create
-  2f | Delete
+  2f | Delete (later)
  --- | Query
   30 | Insert
   31 | Select
