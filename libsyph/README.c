@@ -37,7 +37,7 @@ int				main()
 	t_sysel	sel;
 	t_syph	sy;
 
-	sy.port = 4242;
+	sy.port = 4243;
 	sy.ip[0] = 127;
 	sy.ip[1] = 0;
 	sy.ip[2] = 0;

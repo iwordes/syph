@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 10:57:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 20:10:06 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 21:48:12 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ bool	db_grow(uint32_t at, uint32_t skip)
 	// 9. Increment blockcount
 	BD_BLK += skip;
 
-	sy_log("OK");
+	sy_log("\e[96mdb_grow\e[0m OK");
 
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 19:57:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 21:47:26 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ void			op_21_create(int sock)
 
 	end_(sock, tab->id);
 
-	sy_log("OK");
+	sy_log("\e[96m0x21\e[0m OK");
 }

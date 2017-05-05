@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:33:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 19:30:35 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 21:56:20 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	init(int *argc, char ***argv)
 	init_thread();
 	init_socket();
 	init_signal();
-	sy_log("\e[1;92mReady.\e[0m");
-
 	dprintf(g_mn.log, "g_mn.db.head = {\n");
 	dprintf(g_mn.log, "    ebyte    = %hhu\n", DBH->ebyte);
 	dprintf(g_mn.log, "    x21      = %hhu\n", DBH->x2a);
@@ -40,4 +38,5 @@ void	init(int *argc, char ***argv)
 	dprintf(g_mn.log, "    next_off = %u\n", DBH->next_off);
 	dprintf(g_mn.log, "    tab_cnt  = %u\n", DBH->tab_cnt);
 	dprintf(g_mn.log, "}\n");
+	sy_log("\e[1;92mReady.\e[0m");
 }

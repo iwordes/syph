@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 13:56:54 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 21:47:17 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void		op_30_insert(int sock)
 	t_req30		req;
 	uint32_t	i;
 
+	sy_log("\e[95m0x30\e[0m Insert");
+
 	sy_read(sock, &req, 10);
 	sy_read(sock, &req.field, req.field_len);
 
@@ -81,4 +83,6 @@ void		op_30_insert(int sock)
 
 	write(sock, &req.limit, 4);
 	db_unlock();
+
+	sy_log("\e[96m0x30\e[0m OK");
 }

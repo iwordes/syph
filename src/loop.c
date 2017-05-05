@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 15:53:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 18:48:53 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 21:59:46 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ static void	req_recv(void *fd)
 	close((int)fd);
 }
 
+#define IPB ((U8*)(&sa_inc.sin_addr.s_addr))
+
 void		loop(void)
 {
 	struct sockaddr_in	sa_inc;
@@ -94,7 +96,8 @@ void		loop(void)
 			sy_log("Could not accept connection.");
 		else
 		{
-			sy_log("Connection established from: PLACEHOLDER");
+			dprintf(g_mn.log, "[%ld] Connection established from %d.%d.%d.%d\n",
+				time(NULL), IPB[0], IPB[1], IPB[2], IPB[3]);
 			tp_qpush(g_mn.tp, req_recv, (void*)in);
 		}
 	}
