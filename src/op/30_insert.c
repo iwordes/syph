@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 21:47:17 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 23:55:50 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 
 static void	end_(int sock, uint32_t res)
 {
+	if (res == 0)
+		sy_log("\e[91m0x30\e[0m");
+	else
+		sy_log("\e[92m0x30\e[0m");
 	write(sock, &res, 4);
 	db_unlock();
 }
@@ -53,8 +57,12 @@ static bool	chk_cost(t_tab *tab, t_req30 *req)
 		at = ((void*)tab - (void*)DB.map) / 4096;
 		if (!db_grow(at, tab->bd_blk))
 			return (false);
+		sy_log("ok yus");
+
 		tab->bd_blk *= 2;
+		sy_log("what");
 	}
+	sy_log("and return?");
 	return (true);
 }
 
@@ -66,7 +74,7 @@ void		op_30_insert(int sock)
 
 	sy_log("\e[95m0x30\e[0m Insert");
 
-	sy_read(sock, &req, 10);
+	sy_read(sock, &req, 9);
 	sy_read(sock, &req.field, req.field_len);
 
 	db_wlock();
@@ -74,15 +82,16 @@ void		op_30_insert(int sock)
 	if ((tab = table(req.tid)) == NULL)
 		END(0);
 
+	sy_log("chk_cost");
+
 	if (!chk_cost(tab, &req))
 		END(0);
+
+	sy_log("ins1");
 
 	for (i = 0; i < req.limit; i++)
 		if (!ins1(tab, &req, sock, i))
 			break ;
 
-	write(sock, &req.limit, 4);
-	db_unlock();
-
-	sy_log("\e[96m0x30\e[0m OK");
+	END(req.limit);
 }

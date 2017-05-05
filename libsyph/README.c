@@ -49,11 +49,14 @@ int				main()
 	if (!sy_create(&tab_user))
 		return (2);
 
+	printf("Insert:\n");
 	for (int i = 0; i < 3; i++)
 		printf("%.2d\t%8s\t%-s\n", Users[i].id, Users[i].name, Users[i].pass);
 
 	if (!sy_insert(&tab_user, 3, Users))
 		return (3);
+
+	while(1);
 
 	bzero(&sel, sizeof(sel));
 	sel.limit = 3;
@@ -62,8 +65,9 @@ int				main()
 	if (!sy_select(&sel))
 		return (4);
 
+	printf("Select:\n");
 	for (int i = 0; i < 3; i++)
-		printf("%.2d\t%8s\t%-s\n", Users[i].id, Users[i].name, Users[i].pass);
+		printf("%.2u\t%8s\t%-s\n", Users[i].id, Users[i].name, Users[i].pass);
 
 	cmp.len = 0;
 	cmp.data_len = 0;
@@ -79,6 +83,7 @@ int				main()
 	if (!sy_select(&sel))
 		return (6);
 
+	printf("Update:\n");
 	for (int i = 0; i < 3; i++)
 		printf("%.2d\t%8s\t%-s\n", Users[i].id, Users[i].name, Users[i].pass);
 

@@ -6,7 +6,7 @@
 /*   By: kdavis <kdavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:13:51 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/04 21:47:07 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 22:21:15 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void	op_31_select(int sock)
 
 	free(req.cmp_val);
 
-	sy_log("\e[96m0x31\e[0m OK");
+	sy_log("\e[92m0x31\e[0m");
 }

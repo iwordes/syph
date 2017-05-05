@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/30 15:38:54 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 21:47:09 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 22:21:08 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void	op_32_update(int sock)
 	free(req.cmp_val);
 	free(req.asn_val);
 
-	sy_log("\e[96m0x32\e[0m OK");
+	sy_log("\e[92m0x32\e[0m");
 }
