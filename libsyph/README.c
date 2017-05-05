@@ -48,12 +48,13 @@ int				main()
 	tab_user.db = &sy;
 	if (!sy_create(&tab_user))
 		return (2);
-/*
+
+	printf("ent_size: %u\n", tab_user.ent_size);
 	printf("Insert:\n");
 	for (int i = 0; i < 3; i++)
 		printf("~0\t%-8s\t%-s\n", Users[i].name, Users[i].pass);
 	printf("\n");
-*/
+
 	if (!sy_insert(&tab_user, 3, Users))
 		return (3);
 

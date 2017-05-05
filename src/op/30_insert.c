@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 14:08:52 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 14:59:31 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,15 @@ static bool		ins1(t_tab *tab, t_req30 *req, int sock, uint32_t i)
 	uint8_t		*ent;
 	uint8_t		f;
 
+	printf("ent_size: %u\n", tab->ent_size);
+
 	f = ~0;
 	ent = tab_ent(tab, ~0);
+
+	static uint8_t*p = NULL;
+	printf("%p\n", (void*)(ent - p));
+	p = ent;
+
 	while (++f < req->field_len)
 	{
 		if (!sy_read(sock, ENT_FIELD, FIELD_SIZ))
@@ -53,7 +60,7 @@ static bool		ins1(t_tab *tab, t_req30 *req, int sock, uint32_t i)
 	}
 	*(U32*)ent = tab->next_id++;
 	tab->len += 1;
-	printf("%.2u\t%.8s\t%.128s\n", *(U32*)ent, (I8*)(ent + 4), (I8*)(ent + 13));
+	printf("%.2u\t%.11s\t%.65s\n", *(U32*)ent, (I8*)(ent + 4), (I8*)(ent + 15));
 	return (true);
 }
 

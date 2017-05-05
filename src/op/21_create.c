@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 13:22:14 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 15:00:39 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static bool		tab__init(int sock, t_tab *tab, t_req21 *req)
 			if (g_tsize[f][0] == SCH.type)
 			{
 				SCH.size = g_tsize[f][1];
-				tab->ent_size += SCH.size;
+				tab->ent_size += SCH.size * SCH.len;
 				break ;
 			}
 		if (f == sizeof(g_tsize) / 2)
