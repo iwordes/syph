@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 19:35:17 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 19:57:47 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static void		end_(int sock, uint32_t res)
 
 #define END(R) { end_(sock, R); return ; }
 
+#define TAB_INDEX ((U32(*)[2])(DBH + 1))
+
 void			op_21_create(int sock)
 {
 	t_tab		*tab;
@@ -53,29 +55,24 @@ void			op_21_create(int sock)
 	sy_read(sock, &req, sizeof(req));
 	db_wlock();
 
-	sy_log("\e[95m0x21\e[0m: Create");
+	sy_log("\e[95m0x21\e[0m Create");
+	sy_log((char*)req.label);
 
 	if ((tab = tab_by_label(req.label)) != NULL)
 		END(tab->id);
 
-	sy_log("Grow DB to fit new table...");
-
-	printf("DB_BLK:  %d\n", DB_BLK);
-	printf("TAB_BLK: %d\n", TAB_BLK);
-
 	if (!db_grow(DB_BLK, TAB_BLK))
 		END(0);
 
-	sy_log("Get block for new table...");
-
 	tab = db_blk(DBH->next_off);
-
-	sy_log("Write default table header...");
 
 	tab__init(sock, tab, &req);
 
+	TAB_INDEX[DBH->next_off - 1][0] = DBH->next_id;
+	TAB_INDEX[DBH->next_off - 1][1] = DBH->next_off;
 	DBH->next_id += 1;
 	DBH->next_off += TAB_BLK;
+	DBH->tab_cnt += 1;
 
 	end_(sock, tab->id);
 
