@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   uninit.c                                           :+:      :+:    :+:   */
+/*   lprintf.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/19 10:33:19 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 10:25:57 by iwordes          ###   ########.fr       */
+/*   Created: 2017/05/04 23:07:38 by iwordes           #+#    #+#             */
+/*   Updated: 2017/05/05 11:02:40 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
+#include <stdarg.h>
 
-void	uninit(int z)
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
+
+int		lprintf(const char *msg, ...)
 {
-	sy_log("\e[91m!!! tp_destroy disabled !!!\e[0m");
-	/*
-	sy_log("Destroying thread pool...");
-	tp_destroy(g_mn.tp);
-	*/
-	;
-	sy_log("Shutting down server...");
-	shutdown(g_mn.sock, SHUT_RDWR);
-	close(g_mn.sock);
-	;
-	sy_log("Unloading database...");
-	db_unload();
-	;
-	sy_log("\e[1;92mDone.\e[0m");
-	pthread_mutex_destroy(&g_mn.llock);
-	close(g_mn.log);
-	exit(0);
-	(void)z;
+	va_list	ap;
+	int		o;
+
+	va_start(ap, msg);
+	tp_mlock(&g_mn.llock);
+	o = vdprintf(g_mn.log, msg, ap);
+	tp_munlock(&g_mn.llock);
+	va_end(ap);
+	return (o);
 }

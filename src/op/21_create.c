@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 23:44:28 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 11:02:16 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void		tab__init(int sock, t_tab *tab, t_req21 *req)
 	tab->id = DBH->next_id;
 	tab->schema_len = req->schema_len;
 	memcpy(tab->label, req->label, 32);
+	printf("Init %p '%s' -> '%s'\n", tab, req->label, tab->label);
 	sy_read(sock, tab + 1, sizeof(t_field) * req->schema_len);
 }
 
@@ -59,16 +60,11 @@ void			op_21_create(int sock)
 	sy_read(sock, &req, sizeof(req));
 	db_wlock();
 
-	// tp_mlock(g_mn.logck);
-	dprintf(g_mn.log, "[%ld] \e[95m0x21\e[0m Create \"%s\"\n",
+	lprintf("[%ld] \e[95m0x21\e[0m Create \"%s\"\n",
 		time(NULL), (char*)req.label);
-	// tp_munlock(g_mn.logck);
 
 	if ((tab = tab_by_label(req.label)) != NULL)
-	{
-		sy_log("Already exists.");
 		END(tab->id);
-	}
 
 	if (!db_grow(DB_BLK, TAB_BLK))
 		END(0);

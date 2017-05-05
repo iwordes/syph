@@ -49,6 +49,8 @@ int				main()
 	if (!sy_create(&tab_user))
 		return (2);
 
+	while(1);
+
 	printf("Insert:\n");
 	for (int i = 0; i < 3; i++)
 		printf("%.2d\t%8s\t%-s\n", Users[i].id, Users[i].name, Users[i].pass);

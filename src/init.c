@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:33:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 21:56:20 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 10:26:11 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	init_init(int *argc, char ***argv)
 	g_mn.log = open("syph.log", O_RDWR | O_CREAT | O_APPEND, 0600);
 	if (g_mn.log < 0)
 		exit(DBE_O_LOG);
+	if (pthread_mutex_init(&g_mn.llock, NULL))
+		exit(DBE_LLOCK);
 }
 
 void	init(int *argc, char ***argv)

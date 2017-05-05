@@ -1,4 +1,4 @@
-SRC      := init.c loop.c main.c table.c uninit.c
+SRC      := init.c loop.c lprintf.c main.c table.c uninit.c
 SRC_DB   := blk.c grow.c init.c load.c rlock.c unload.c unlock.c wlock.c
 SRC_INIT := config.c signal.c socket.c thread.c
 SRC_OP   := 21_create.c #2f_delete.c

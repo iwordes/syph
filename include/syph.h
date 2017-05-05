@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 18:07:37 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 11:01:40 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@
 /*
 ** =============================================================================
 ** Utils
+*/
+
+/*
+** #define LOG(A...) lprintf(DBM_L ##A)
+** #define ERROR(A...) lprintf(DBM_E M, time(NULL), __FILE__, __LINE__, ##A)
+** #define FATAL(A...) lprintf(DBM_F M, time(NULL), __FILE__, __LINE__, ##A)
 */
 
 # define ERROR(MSG) sy_error(MSG, __FILE__, __LINE__)
@@ -106,6 +112,7 @@
 
 # define DBE_CHDIR 10
 # define DBE_O_LOG 11
+# define DBE_LLOCK 12
 
 # define DBE_SACC 20 /* ? socket-accept */
 # define DBE_RECV /* ? socket-recv */
@@ -190,6 +197,8 @@ typedef struct	s_main
 	int			e;
 
 	bool		bg;
+
+	t_tp_mut	llock;
 }				t_main;
 
 typedef struct	s_op
@@ -390,6 +399,8 @@ void			init_thread(void);
 
 t_asnfn			sy_asn(uint8_t op);
 t_cmpfn			sy_cmp(uint8_t op);
+
+int				lprintf(const char *msg, ...);
 
 void			sy_error(const char *msg, const char *file, long line);
 void			sy_fatal(const char *msg, const char *file, long line);
