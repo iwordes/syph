@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 12:37:26 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 13:22:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static bool		tab__init(int sock, t_tab *tab, t_req21 *req)
 	if (!sy_read(sock, tab + 1, sizeof(t_field) * req->schema_len))
 		return (false);
 	i = ~0;
+	tab->ent_size = 0;
 	while (++i < req->schema_len)
 	{
 		f = ~0;
@@ -65,6 +66,7 @@ static bool		tab__init(int sock, t_tab *tab, t_req21 *req)
 			if (g_tsize[f][0] == SCH.type)
 			{
 				SCH.size = g_tsize[f][1];
+				tab->ent_size += SCH.size;
 				break ;
 			}
 		if (f == sizeof(g_tsize) / 2)

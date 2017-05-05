@@ -3,7 +3,7 @@ NAME = libsyph.a
 CC   = gcc
 CF   = -Wall -Wextra -Werror -I include
 
-SRC  = connect.c create.c delete.c insert.c select.c types.c update.c
+SRC  = connect.c create.c delete.c insert.c select.c update.c
 SRC += z_connit.c z_read.c
 
 OBJ := $(addprefix build/,$(SRC:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 12:36:54 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 13:24:59 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,25 @@ static bool		ins1(t_tab *tab, t_req30 *req, int sock, uint32_t i)
 	uint8_t		f;
 
 	f = ~0;
-
-	LOG("\e[95mins1\e[0m");
-
 	ent = tab_ent(tab, ~0);
-
-	LOG("    Iter fields...");
-
 	while (++f < req->field_len)
+	{
 		if (!sy_read(sock, ENT_FIELD, FIELD_SIZ))
 		{
 			ERROR("Could not read into entry!");
-			printf("%d: %s\n", errno, strerror(errno));
-
+			lprintf("             errno %d: %s\n", errno, strerror(errno));
+			lprintf("             ent -= %d * %u;\n", i, tab->ent_size);
 			ent -= i * tab->ent_size;
+			lprintf("             bzero(ent, %u);\n", (i + 1) * tab->ent_size);
 			bzero(ent, (i + 1) * tab->ent_size);
+			lprintf("             tab->len -= %d;\n", i);
 			tab->len -= i;
-
 			LOG("\e[91mins1\e[0m");
 			return (false);
 		}
-
-	LOG("    Set ID, update header...");
-
+	}
 	*(U32*)ent = tab->next_id++;
 	tab->len += 1;
-
-	LOG("\e[92mins1\e[0m");
 	return (true);
 }
 
@@ -99,7 +91,7 @@ void			op_30_insert(int sock)
 	LOG("\e[95m0x30\e[0m Insert");
 
 	sy_read(sock, &req, 9);
-	sy_read(sock, &req.field, req.field_len);
+	sy_read(sock, req.field, req.field_len);
 
 	db_wlock();
 

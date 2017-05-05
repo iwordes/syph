@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 13:53:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 21:39:26 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 13:06:35 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,6 @@ typedef struct	s_sysel
 ** Types
 */
 
-typedef struct	s_sytype
-{
-	uint8_t		type;
-	uint8_t		size_b;
-}				t_sytype;
-
 # define SYT_U8   0x00
 # define SYT_U16  0x01
 # define SYT_U32  0x02
@@ -132,8 +126,6 @@ typedef struct	s_sytype
 
 # define SYT_F32  0x10
 # define SYT_F64  0x11
-
-const t_sytype	g_sytype[11];
 
 /*
 ** =============================================================================
