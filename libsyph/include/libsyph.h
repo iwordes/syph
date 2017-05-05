@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 13:53:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 18:40:46 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/05/04 20:45:48 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <unistd.h>
 # include <string.h>
 
+# define S_ADDR struct sockaddr_in
+
+typedef S_ADDR	t_sysa;
 
 /*
 ** =============================================================================
@@ -130,10 +133,18 @@ const t_sytype	g_sytype[11];
 
 /*
 ** =============================================================================
+** Flags
+*/
+
+# define SYF_NONE 0
+# define SYF_UNIQ 1
+
+/*
+** =============================================================================
 ** Functions
 */
 
-t_syph			sy_connect(uint8_t ip[4], uint16_t port);
+bool			sy_connect(t_syph *syph);
 
 bool			sy_create(t_sytab *tab);
 

@@ -3,42 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   select.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdavis <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: kdavis <kdavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 19:09:31 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/03 20:31:32 by kdavis           ###   ########.fr       */
+/*   Updated: 2017/05/04 21:18:59 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libsyph.h>
 
-static void	write_to_sock(int sock, const t_sytab *tab, const t_sycmp *cmp,
-		uint32_t limit)
+static void	pls_send(int sock, t_sysel *sel)
 {
 	write(sock, "\x31", 1);
-	write(sock, &tab->id, 4);
-	write(sock, &limit, 4);
-	write(sock, &tab->schema_len, 1);
-	write(sock, &cmp->len, 1);
-	write(sock, cmp->cmp, cmp->len * sizeof(t_sypair));
-	write(sock, cmp->data, cmp->data_len);
+	write(sock, &sel->tab->id, 4);
+	write(sock, &sel->limit, 4);
+	write(sock, &sel->tab->schema_len, 1);
+	write(sock, &sel->cmp->len, 1);
+	write(sock, &sel->cmp->cmp, sel->cmp->len * sizeof(t_sypair));
+	write(sock, &sel->cmp->data, sel->cmp->data_len);
 }
 
-t_sysel	*sy_select(const t_sytab *tab, const t_sycmp *cmp, uint32_t limit)
+#define LEN (sel->tab->ent_size * sel->cnt)
+
+static bool	pls_recv(int sock, t_sysel *sel)
+{
+	if (sy_read(sock, &sel->cnt, 4) != 4)
+		return (false);
+	return (sy_read(sock, sel->data, LEN) >= 0);
+}
+
+bool		sy_select(t_sysel *sel)
 {
 	int		sock;
-	t_sysel	*ret;
-	
-	if (!(ret = calloc(1, sizeof(*ret))))
-		return (NULL);
-	if (tab->db->be)
-		limit = htonl(limit);
-	sock = sy__connit(tab->db);
-	write_to_sock(sock, tab, cmp, limit); //Condense writing to one helper function
-	if ((sy__read(sock, &ret->cnt, 4) == 4) &&
-			sy__read(sock, ret->data, ret->cnt * tab->ent_size)
-			== ret->cnt * tab->ent_size) 
-		return (ret);
-	free(ret);
-	return (NULL);
+	bool	ok;
+
+	sock = sy__connit(sel->tab->db);
+	if (sock < 0)
+		return (false);
+	pls_send(sock, sel));
+	ok = pls_recv(sock, sel);
+	close(sock);
+	return (ok);
 }
