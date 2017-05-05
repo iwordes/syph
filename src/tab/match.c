@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:15:24 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 16:51:07 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 17:44:16 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static bool		comp_(t_tab *tab, U8 *ent, t_req31 *req)
 {
-	t_cmpfn	*cmp;
+	t_cmpfn	cmp;
 	U8		*val;
 	U8		i;
 
@@ -38,6 +38,6 @@ static bool		comp_(t_tab *tab, U8 *ent, t_req31 *req)
 
 void	tab_match(t_tab *tab, U8 *ent, t_req31 *req)
 {
-	if (req->cnt < req->len && comp_(tab, ent, req))
+	if (req->cnt < req->limit && comp_(tab, ent, req))
 		req->cnt += 1;
 }

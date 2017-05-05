@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/04 13:27:39 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 13:55:15 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 17:39:36 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ uint8_t		*tab_ent(t_tab *tab, uint32_t id)
 	ent = (U8*)tab + (tab->hd_blk * 4096);
 	if (id == 0)
 		return (ent);
-	if (id == ~0)
+	if (id == ~0U)
 		return (ent + tab->len * tab->ent_size);
 	while (i < tab->len)
 	{

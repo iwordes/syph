@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 19:31:59 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 20:01:56 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 17:33:37 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ t_tab	*table(uint32_t id)
 	size_t		i;
 
 	i = 0;
-	tab = (void*)(g_mn.db.head + 1);
-	while (i < g_mn.db.head->table_cnt)
+	tab = (void*)(DBH + 1);
+	while (i < DBH->tab_cnt)
 	{
 		if (tab[i][0] == id)
-			return ((void*)(g_mn.db.map + (tab[i][1] * 4096)));
+			return ((void*)(DB.map + (tab[i][1] * 4096)));
 		i += 1;
 	}
 	return (NULL);

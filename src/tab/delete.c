@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 15:07:52 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 16:51:20 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 17:38:40 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static bool		comp_(t_tab *tab, U8 *ent, t_req33 *req)
 {
-	t_cmpfn	*cmp;
+	t_cmpfn	cmp;
 	U8		*val;
 	U8		i;
 

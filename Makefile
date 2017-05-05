@@ -1,12 +1,10 @@
 NAME    = syphd
 VERSION = 0.1.0
 
-LIBS   := arg tp
-
 CC      = gcc
 CF     += -Wall -Wextra -Werror
-CF     += -I include -I lib/arg -I lib/tp/include
-CF     += $(foreach lib,$(LIBS),-L lib/$(lib) -l$(lib))
+CF     += -I include -I lib/tp/include
+CF     += -L lib/tp -ltp
 
 include src.mk
 
@@ -30,7 +28,7 @@ re: fclean all
 
 LIBS := $(addsuffix .a,$(LIB))
 
-$(NAME): $(SRC) $(LIBS)
+$(NAME): $(SRC) lib/tp/libtp.a
 	$(CC) $(CF) -o $@ $(SRC)
 
 %.a:

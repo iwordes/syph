@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 16:51:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 17:47:54 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <time.h>
 # include <unistd.h>
 
-# include <libarg.h>
 # include <libtp.h>
 
 # define DB g_mn.db
@@ -113,6 +112,7 @@
 
 # define DBE_READ DBE_RECV
 # define DBE_WRITE DBE_SEND
+
 /*
 ** =============================================================================
 ** Datatypes
@@ -129,7 +129,7 @@ typedef struct	s_db_head
 	uint32_t	next_id;
 	uint32_t	next_off;
 
-	uint32_t	table_cnt;
+	uint32_t	tab_cnt;
 }				t_db_head;
 
 typedef struct	s_field
@@ -209,6 +209,9 @@ typedef struct	s_asn
 	void		(*fn)(t_field*, U8*, U8*);
 }				t_asn;
 
+typedef void	(*t_asnfn)(t_field*, U8*, U8*);
+typedef bool	(*t_cmpfn)(t_field*, U8*, U8*);
+
 /*
 ** =============================================================================
 ** Requests
@@ -251,6 +254,7 @@ typedef struct	s_req31
 	U8			*cmp_val;
 
 	uint32_t	cnt;
+	int			sock;
 }				t_req31;
 
 typedef struct	s_req32
@@ -368,7 +372,7 @@ off_t			tab_foff(t_tab *tab, uint8_t id);
 
 void			tab_foreach(t_tab *tab, void *fn, void *ctx);
 
-void			tab_match(t_tab *tab, uint8_t *ent, t_tabmat *t);
+void			tab_match(t_tab *tab, uint8_t *ent, t_req31 *req);
 void			tab_select(t_tab *tab, uint8_t *ent, t_req31 *req);
 void			tab_update(t_tab *tab, uint8_t *ent, t_req32 *req);
 void			tab_delete(t_tab *tab, uint8_t *ent, t_req33 *req);
@@ -382,6 +386,9 @@ void			init_config(void);
 void			init_signal(void);
 void			init_socket(void);
 void			init_thread(void);
+
+t_asnfn			sy_asn(uint8_t op);
+t_cmpfn			sy_cmp(uint8_t op);
 
 void			sy_error(const char *msg, const char *file, long line);
 void			sy_fatal(const char *msg, const char *file, long line);

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:23:44 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 16:51:15 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 17:45:03 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 #define CMP2 (ent + tab_foff(tab, C[i].id))
 
 #define OBT_LOC (ent + tab_foff(tab, req->field[f]))
-#define OBT_SIZE (tab_field(tab, F[i])->len * tab_field(tab, F[i])->size)
+#define OBT_SIZE (tab_field(tab, F[f])->len * tab_field(tab, F[f])->size)
 
 #define CSIZE (tab_field(tab, C[i].id)->len * tab_field(tab, C[i].id)->size)
 
 static bool		comp_(t_tab *tab, U8 *ent, t_req31 *req)
 {
-	t_cmpfn	*cmp;
+	t_cmpfn	cmp;
 	U8		*val;
 	U8		i;
 

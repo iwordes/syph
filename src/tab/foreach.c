@@ -6,13 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 15:09:18 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 11:07:42 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 17:42:23 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-#define I (i * tab->entry_size)
+#define I (i * tab->ent_size)
 #define FT void (*)(t_tab*, U8*, void*)
 
 void	tab_foreach(t_tab *tab, void *fn, void *ctx)

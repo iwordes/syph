@@ -6,7 +6,7 @@
 /*   By: kdavis <kdavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:13:51 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/04 16:52:10 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 17:44:46 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	op_31_select(int sock)
 	write(sock, &req.cnt, 4);
 	req.cnt = 0;
 
+	req.sock = sock;
 	tab_foreach(tab, tab_select, &req);
 	db_unlock();
 

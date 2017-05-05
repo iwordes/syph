@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/04 15:34:51 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 15:40:34 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 17:32:07 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 #define LEN (sizeof(g_cmp) / sizeof(t_cmp))
 
-t_cmpfn		*sy_cmp(uint8_t id)
+t_cmpfn		sy_cmp(uint8_t op)
 {
 	uint8_t		i;
 
 	i = 0;
 	while (i < LEN)
 	{
-		if (g_cmp[i].id == id)
+		if (g_cmp[i].op == op)
 			break ;
 		i += 1;
 	}

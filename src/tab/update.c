@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:29:20 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 16:51:31 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 17:45:26 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 static bool		comp_(t_tab *tab, U8 *ent, t_req32 *req)
 {
-	t_cmpfn	*cmp;
+	t_cmpfn	cmp;
 	U8		*val;
 	U8		i;
 
@@ -48,7 +48,6 @@ static bool		comp_(t_tab *tab, U8 *ent, t_req32 *req)
 
 static bool		assign_(t_tab *tab, U8 *ent, t_req32 *req)
 {
-	t_asnfn	*asn;
 	U8		*val;
 	U8		i;
 
