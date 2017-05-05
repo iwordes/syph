@@ -6,40 +6,42 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:25:05 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 14:55:51 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 16:08:33 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-#define SIZE (f->size * f->len)
+#define F (tab_field(p.tab, pair[i].id))
 
-int		sy_getpair(t_getpair p, U8 len, t_pair pair[255], U8 **val)
+bool	sy_getpair(t_getpair p, U8 len, t_pair pair[255], U8 **val)
 {
 	size_t	mem;
-	size_t	off;
-	t_field	*f;
 	U8		i;
 
+	lprintf("[%ld] \e[95msy_getpair\e[0m(%hhu)\n", time(NULL), len);
 	i = ~0;
-	off = 0;
-	mem = 4096;
-	sy_read(p.sock, pair, len * 2);
-	if ((*val = ZALT(U8, 4096)) == NULL)
+	mem = 0;
+	*val = NULL;
+	if (!sy_read(p.sock, pair, len * 2))
 	{
-		ERROR("OOM");
-		return (1);
+		LOG("\e[91msy_getpair\e[0m");
+		return (false);
 	}
 	while (++i < len)
+		mem += F->size * F->len;
+	if (mem != 0 && (*val = ZALT(U8, mem)) == NULL)
 	{
-		f = tab_field(p.tab, pair[i].id);
-		if (off + SIZE >= mem && DRALT(*val, U8, mem *= 2) == NULL)
-		{
-			ERROR("OOM");
-			return (2);
-		}
-		sy_read(p.sock, *val + off, SIZE);
-		off += SIZE;
+		ERROR("Out of memory!");
+		LOG("\e[91msy_getpair\e[0m");
+		return (false);
 	}
-	return (0);
+	if (mem != 0 && !sy_read(p.sock, *val, mem))
+	{
+		free(*val);
+		LOG("\e[91msy_getpair\e[0m");
+		return (false);
+	}
+	LOG("\e[92msy_getpair\e[0m");
+	return (true);
 }

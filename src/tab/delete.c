@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 15:07:52 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 17:38:40 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 16:22:20 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool		comp_(t_tab *tab, U8 *ent, t_req33 *req)
 	val = req->cmp_val;
 	while (++i < req->cmp_len)
 	{
-		if ((cmp = sy_cmp(req->cmp[i].id)) == NULL)
+		if ((cmp = sy_cmp(req->cmp[i].op)) == NULL)
 			return (false);
 		if (!cmp(CMP1, CMP2, val))
 			return (false);

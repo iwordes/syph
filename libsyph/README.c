@@ -52,13 +52,11 @@ int				main()
 	printf("ent_size: %u\n", tab_user.ent_size);
 	printf("Insert:\n");
 	for (int i = 0; i < 3; i++)
-		printf("~0\t%-8s\t%-s\n", Users[i].name, Users[i].pass);
+		printf("~0\t'%-8s'\t'%-s'\n", Users[i].name, Users[i].pass);
 	printf("\n");
 
 	if (!sy_insert(&tab_user, 3, Users))
 		return (3);
-
-	while(1);
 
 	bzero(&sel, sizeof(sel));
 	sel.limit = 3;
@@ -69,17 +67,18 @@ int				main()
 
 	printf("Select:\n");
 	for (int i = 0; i < 3; i++)
-		printf("%.2u\t%-8s\t%-s\n", Users[i].id, Users[i].name, Users[i].pass);
+		printf("%.2u\t'%-8s'\t'%-s'\n", Users[i].id, Users[i].name, Users[i].pass);
 	printf("\n");
 
-	while(1);
+	bzero(&asn, sizeof(asn));
+	bzero(&cmp, sizeof(cmp));
 
 	cmp.len = 0;
 	cmp.data_len = 0;
 
 	asn.len = 1;
-	asn.data_len = 5;
-	asn.data = "Who?";
+	asn.data_len = 11;
+	asn.data = "Who?\0\0\0\0\0\0";
 	asn.asn[0].id = 1;
 	asn.asn[0].op = SYA_SET;
 	if (!sy_update(&tab_user, &cmp, &asn))
@@ -90,7 +89,9 @@ int				main()
 
 	printf("Update:\n");
 	for (int i = 0; i < 3; i++)
-		printf("%.2d\t%8s\t%-s\n", Users[i].id, Users[i].name, Users[i].pass);
+		printf("%.2d\t'%8s'\t'%-s'\n", Users[i].id, Users[i].name, Users[i].pass);
+
+	while (1);
 
 	if (!sy_delete(&tab_user, &cmp, 3))
 		return (6);

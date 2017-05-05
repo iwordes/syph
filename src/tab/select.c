@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:23:44 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 13:42:55 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 15:16:20 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static bool		obtain_(t_tab *tab, U8 *ent, t_req31 *req)
 	f = ~0;
 	while (++f < req->field_len)
 	{
-		lprintf("[%d] 0x31 Send[%u, %u]\n", time(NULL), tab_foff(tab, F[f]), OBT_SIZE);
 		if (write(req->sock, OBT_LOC, OBT_SIZE) <= 0)
 			return (false);
 	}

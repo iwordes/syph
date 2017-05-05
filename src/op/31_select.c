@@ -6,7 +6,7 @@
 /*   By: kdavis <kdavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:13:51 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/05 13:38:59 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 16:03:08 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	op_31_select(int sock)
 
 	p.tab = tab;
 	p.sock = sock;
-	if (sy_getpair(p, req.cmp_len, req.cmp, &req.cmp_val) != 0)
+	if (!sy_getpair(p, req.cmp_len, req.cmp, &req.cmp_val))
 	{
 		LOG("\e[91m0x31\e[0m");
 		db_unlock();

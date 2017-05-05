@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/04 13:27:39 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 15:08:49 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 15:15:57 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ uint8_t		*tab_ent(t_tab *tab, uint32_t id)
 	uint8_t		*ent;
 	uint32_t	i;
 
-
+	/*
 	printf("Users {\n");
 	printf("    id: %u\n", tab->id);
 	printf("    len: %u\n", tab->len);
@@ -34,11 +34,10 @@ uint8_t		*tab_ent(t_tab *tab, uint32_t id)
 	printf("    label: '%s'\n", (char*)tab->label);
 	printf("    schema_len: %hhu\n", tab->schema_len);
 	printf("}\n");
+	*/
 
 	i = 0;
 	ent = (U8*)tab + (tab->hd_blk * 4096);
-
-	printf("tab -> body: %ld\n", (void*)ent - (void*)tab);
 
 	if (id == 0)
 		return (ent);

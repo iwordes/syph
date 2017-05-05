@@ -6,25 +6,15 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:29:20 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 17:45:26 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 16:22:11 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-#define A req->asn
 #define C req->cmp
-
-#define AV req->asn_val
-#define CV req->cmp_val
-
-#define ASN1 (tab_field(tab, A[i].id))
-#define ASN2 (ent + tab_foff(tab, A[i].id))
-
 #define CMP1 (tab_field(tab, C[i].id))
 #define CMP2 (ent + tab_foff(tab, C[i].id))
-
-#define ASIZE (tab_field(tab, A[i].id)->len * tab_field(tab, A[i].id)->size)
 #define CSIZE (tab_field(tab, C[i].id)->len * tab_field(tab, C[i].id)->size)
 
 static bool		comp_(t_tab *tab, U8 *ent, t_req32 *req)
@@ -34,10 +24,10 @@ static bool		comp_(t_tab *tab, U8 *ent, t_req32 *req)
 	U8		i;
 
 	i = ~0;
-	val = CV;
+	val = req->cmp_val;
 	while (++i < req->cmp_len)
 	{
-		if ((cmp = sy_cmp(req->cmp[i].id)) == NULL)
+		if ((cmp = sy_cmp(req->cmp[i].op)) == NULL)
 			return (false);
 		if (!cmp(CMP1, CMP2, val))
 			return (false);
@@ -46,21 +36,27 @@ static bool		comp_(t_tab *tab, U8 *ent, t_req32 *req)
 	return (true);
 }
 
+#define A req->asn
+#define ASN1 (tab_field(tab, A[i].id))
+#define ASN2 (ent + tab_foff(tab, A[i].id))
+#define ASIZE (tab_field(tab, A[i].id)->len * tab_field(tab, A[i].id)->size)
+
 static bool		assign_(t_tab *tab, U8 *ent, t_req32 *req)
 {
 	U8		*val;
 	U8		i;
 
 	i = ~0;
-	val = AV;
+	val = req->asn_val;
 	while (++i < req->asn_len)
-		if (sy_asn(req->asn[i].id) == NULL)
+		if (sy_asn(req->asn[i].op) == NULL)
 			return (false);
 	i = ~0;
 	while (++i < req->asn_len)
 	{
-		sy_asn(req->asn[i].id)(ASN1, ASN2, val);
+		sy_asn(req->asn[i].op)(ASN1, ASN2, val);
 		val += ASIZE;
+		LOG("iok");
 	}
 	return (true);
 }

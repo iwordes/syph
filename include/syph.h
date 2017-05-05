@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 11:32:57 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 16:02:34 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,7 +408,7 @@ void			sy_error(const char *msg, const char *file, long line);
 void			sy_fatal(const char *msg, const char *file, long line);
 void			sy_log(const char *msg);
 
-int				sy_getpair(t_getpair p, U8 len, t_pair pair[255], U8 **val);
+bool			sy_getpair(t_getpair p, U8 len, t_pair pair[255], U8 **val);
 
 bool			sy_read(int fd, void *buff, ssize_t n);
 
