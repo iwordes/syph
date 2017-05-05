@@ -6,19 +6,21 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 12:32:16 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 20:17:24 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 18:31:12 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-#define MAP (mmap(NULL, DB.size, PROT_RW, MAP_SHARED, DB.fd, 0))
+#define MAP (mmap(NULL, blk * 4096, PROT_RW, MAP_SHARED, DB.fd, 0))
 #define PANIC(N) return (panic(N))
 
 static char	*g_emsg[] =
 {
+	"Failed to initialize database.",
 	"Failed to open database.",
 	"Invalid database: Size is not a multiple of 4096.",
+	"Failed to get database size.",
 	"Failed to map database into memory.",
 	"Invalid database: Endian byte mismatch.",
 	"Invalid database: Missing 0x2a at offset 1.",
@@ -37,23 +39,52 @@ static int	panic(int n)
 	return (n);
 }
 
+static U64	blocks_(int fd)
+{
+	uint32_t	bd;
+	uint16_t	hd;
+	uint8_t		be;
+
+	lseek(fd, 0, SEEK_SET);
+	if (read(fd, &be, 1) <= 0 || be != EBYTE)
+		return (0);
+	lseek(fd, 2, SEEK_SET);
+	if (!sy_read(fd, &hd, 2) || !sy_read(fd, &bd, 4))
+		return (0);
+	lseek(fd, 0, SEEK_SET);
+	return (hd + bd);
+}
+
 int			db_load(const char *path)
 {
+	U64		blk;
+
 	dprintf(g_mn.log, "[%ld] Loading %s...\n", time(NULL), path);
 	DB.name = (char*)path;
-	if ((DB.fd = open(path, O_RDWR | O_EXLOCK | O_SYMLINK)) < 0)
+	if (access(path, F_OK) != 0 && db_init(path) != 0)
 		PANIC(1);
-	if (lseek(DB.fd, 0, SEEK_END) % 4096 > 0)
+	if ((DB.fd = open(path, O_RDWR | O_EXLOCK)) < 0)
+	{
+		printf("%d: %s\n", errno, strerror(errno));
 		PANIC(2);
-	lseek(DB.fd, 0, SEEK_SET);
-	if ((DB.map = MAP) == MAP_FAILED)
+	}
+	if (lseek(DB.fd, 0, SEEK_END) % 4096 > 0)
 		PANIC(3);
+	if ((blk = blocks_(DB.fd)) == 0)
+		PANIC(4);
+
+	if ((DB.map = MAP) == MAP_FAILED)
+	{
+		printf("%d\n", errno);
+		PANIC(5);
+	}
+
 	DBH = (void*)DB.map;
 	if (DBH->ebyte != EBYTE)
-		PANIC(4);
-	if (DBH->x2a != 0x2a)
-		PANIC(5);
-	if (pthread_rwlock_init(&DB.lock, NULL) != 0)
 		PANIC(6);
+	if (DBH->x2a != 0x2a)
+		PANIC(7);
+	if (pthread_rwlock_init(&DB.lock, NULL) != 0)
+		PANIC(8);
 	return (0);
 }

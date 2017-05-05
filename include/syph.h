@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 17:47:54 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 18:07:37 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SYPH_H
 
 # include <arpa/inet.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <signal.h>
 # include <stdio.h>

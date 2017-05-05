@@ -1,5 +1,5 @@
 NAME    = syphd
-VERSION = 0.1.0
+VERSION = 0.9.0
 
 CC      = gcc
 CF     += -Wall -Wextra -Werror
@@ -16,10 +16,11 @@ all: $(NAME)
 .PHONY: clean
 clean:
 	rm -rf build
+	make -C lib/tp fclean
 
 .PHONY: fclean
 fclean: clean
-	rm -f ft_db
+	rm -f syphd
 
 .PHONY: re
 re: fclean all
