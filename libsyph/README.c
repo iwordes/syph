@@ -89,9 +89,7 @@ int				main()
 
 	printf("Update:\n");
 	for (int i = 0; i < 3; i++)
-		printf("%.2d\t'%8s'\t'%-s'\n", Users[i].id, Users[i].name, Users[i].pass);
-
-	while (1);
+		printf("%.2d\t'%-8s'\t'%-s'\n", Users[i].id, Users[i].name, Users[i].pass);
 
 	if (!sy_delete(&tab_user, &cmp, 3))
 		return (6);
