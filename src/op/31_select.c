@@ -6,7 +6,7 @@
 /*   By: kdavis <kdavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:13:51 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/04 22:21:15 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 13:38:59 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,25 @@ void	op_31_select(int sock)
 
 	bzero(&req, sizeof(req));
 
-	sy_read(sock, &req, 11);
+	sy_read(sock, &req, 9);
+	sy_read(sock, req.field, req.field_len);
 
 	db_rlock();
 	tab = table(req.tid);
 
 	p.tab = tab;
 	p.sock = sock;
-	if (sy_getpair(p, req.cmp_len, req.cmp, &req.cmp_val))
+	if (sy_getpair(p, req.cmp_len, req.cmp, &req.cmp_val) != 0)
 	{
+		LOG("\e[91m0x31\e[0m");
 		db_unlock();
 		return ;
 	}
 
 	tab_foreach(tab, tab_match, &req);
+
+	lprintf("[%ld] 0x31 %u Results\n", time(NULL), req.cnt);
+
 	write(sock, &req.cnt, 4);
 	req.cnt = 0;
 

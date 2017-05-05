@@ -18,11 +18,9 @@ Select
 2. u32  Limit
 3. u8   Field count
 4. u8[] Fields
-5. u8   Order count
-6. []   Orders
-7. u8   Comparison count
-8. []   Comparisons
-9. []   Values
+5. u8   Comparison count
+6. []   Comparisons
+7. []   Values
 
 Update
 ------

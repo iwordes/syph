@@ -6,7 +6,7 @@
 /*   By: kdavis <kdavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 19:09:31 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/04 21:35:44 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 13:34:50 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 static void	pls_send(int sock, t_sysel *sel)
 {
+	uint8_t		id;
+
 	write(sock, "\x31", 1);
 	write(sock, &sel->tab->id, 4);
 	write(sock, &sel->limit, 4);
 	write(sock, &sel->tab->schema_len, 1);
+	id = ~0;
+	while (++id < sel->tab->schema_len)
+		write(sock, &id, 1);
 	write(sock, &sel->cmp.len, 1);
 	write(sock, &sel->cmp.cmp, sel->cmp.len * 2);
 	write(sock, &sel->cmp.data, sel->cmp.data_len);

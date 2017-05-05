@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 13:24:59 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 14:08:52 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static bool		ins1(t_tab *tab, t_req30 *req, int sock, uint32_t i)
 	}
 	*(U32*)ent = tab->next_id++;
 	tab->len += 1;
+	printf("%.2u\t%.8s\t%.128s\n", *(U32*)ent, (I8*)(ent + 4), (I8*)(ent + 13));
 	return (true);
 }
 
