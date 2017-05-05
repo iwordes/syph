@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:19:16 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 19:31:42 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 18:33:06 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 void	init_config(void)
 {
+	sy_log("Initializing config...");
 	if (db_load("syph.db") != 0)
 		FATAL("Could not load database \"syph.db\"!");
 }

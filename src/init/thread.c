@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 15:42:58 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 20:19:59 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/04 18:33:52 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_thread(void)
 {
+	sy_log("Initializing libtp...");
 	if ((g_mn.tp = tp_create(4, 64)) == NULL)
 		FATAL("Could not create thread pool!");
 }
