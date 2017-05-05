@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 15:00:39 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 15:09:47 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static t_tab	g_init_head =
 	1,
 	~0,
 
-	TAB_HD_BLK,
 	TAB_BD_BLK,
+	TAB_HD_BLK,
 
 	{0},
 
