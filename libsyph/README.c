@@ -4,8 +4,8 @@
 typedef struct	User
 {
 	uint32_t	id;
-	uint8_t		name[9];
-	uint8_t		pass[129];
+	uint8_t		name[11];
+	uint8_t		pass[65];
 }				User;
 
 t_sytab			tab_user =
@@ -14,8 +14,8 @@ t_sytab			tab_user =
 	3,
 	{
 		{ 0x02, SYF_UNIQ, ~0, 1 },
-		{ 0x04, SYF_UNIQ, ~0, 9 },
-		{ 0x00, SYF_NONE, ~0, 129 }
+		{ 0x0d, SYF_UNIQ, ~0, 11 },
+		{ 0x00, SYF_NONE, ~0, 65 }
 	},
 	NULL,
 
@@ -48,14 +48,16 @@ int				main()
 	tab_user.db = &sy;
 	if (!sy_create(&tab_user))
 		return (2);
-
+/*
 	printf("Insert:\n");
 	for (int i = 0; i < 3; i++)
 		printf("~0\t%-8s\t%-s\n", Users[i].name, Users[i].pass);
 	printf("\n");
-
+*/
 	if (!sy_insert(&tab_user, 3, Users))
 		return (3);
+
+	while(1);
 
 	bzero(&sel, sizeof(sel));
 	sel.limit = 3;
@@ -68,6 +70,8 @@ int				main()
 	for (int i = 0; i < 3; i++)
 		printf("%.2u\t%-8s\t%-s\n", Users[i].id, Users[i].name, Users[i].pass);
 	printf("\n");
+
+	while(1);
 
 	cmp.len = 0;
 	cmp.data_len = 0;
