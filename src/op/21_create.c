@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 11:02:16 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 12:34:46 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,50 @@ static t_tab	g_init_head =
 	~0
 };
 
-static void		tab__init(int sock, t_tab *tab, t_req21 *req)
+static uint8_t	g_tsize[11][2] =
 {
+	{ 0x00, 1 },
+	{ 0x01, 2 },
+	{ 0x02, 4 },
+	{ 0x03, 8 },
+	{ 0x04, 1 },
+	{ 0x05, 2 },
+	{ 0x06, 4 },
+	{ 0x07, 8 },
+	{ 0x0d, 1 },
+
+	{ 0x10, 4 },
+	{ 0x11, 8 }
+};
+
+#define SCH ((t_field*)(tab + 1))[i]
+
+static bool		tab__init(int sock, t_tab *tab, t_req21 *req)
+{
+	uint8_t		f;
+	uint8_t		i;
+
 	*tab = g_init_head;
 	tab->id = DBH->next_id;
 	tab->schema_len = req->schema_len;
 	memcpy(tab->label, req->label, 32);
-	printf("Init %p '%s' -> '%s'\n", tab, req->label, tab->label);
-	sy_read(sock, tab + 1, sizeof(t_field) * req->schema_len);
+	if (!sy_read(sock, tab + 1, sizeof(t_field) * req->schema_len))
+		return (false);
+	i = ~0;
+	while (++i < req->schema_len)
+	{
+		SCH.f_unique, SCH.size, SCH.len);
+		f = ~0;
+		while (++f < sizeof(g_tsize) / 2)
+			if (g_tsize[f][0] == SCH.type)
+			{
+				SCH.size = g_tsize[f][1];
+				break ;
+			}
+		if (f == sizeof(g_tsize) / 2)
+			return (false);
+	}
+	return (true);
 }
 
 static void		end_(int sock, uint32_t res)
@@ -57,7 +93,7 @@ void			op_21_create(int sock)
 	t_tab		*tab;
 	t_req21		req;
 
-	sy_read(sock, &req, sizeof(req));
+	sy_read(sock, &req, 34);
 	db_wlock();
 
 	lprintf("[%ld] \e[95m0x21\e[0m Create \"%s\"\n",
@@ -71,7 +107,8 @@ void			op_21_create(int sock)
 
 	tab = db_blk(DBH->next_off);
 
-	tab__init(sock, tab, &req);
+	if (!tab__init(sock, tab, &req))
+		END(0);
 
 	TAB_INDEX[DBH->next_id - 1][0] = DBH->next_id;
 	TAB_INDEX[DBH->next_id - 1][1] = DBH->next_off;

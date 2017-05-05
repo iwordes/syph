@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 15:53:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 21:59:46 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 12:15:27 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void		loop(void)
 	socklen_t			l;
 
 	l = sizeof(sa_inc);
-	while (1)
+	while (g_mn.sock >= 0)
 	{
 		if ((in = accept(g_mn.sock, (void*)&sa_inc, &l)) < 0)
 			sy_log("Could not accept connection.");
@@ -101,4 +101,5 @@ void		loop(void)
 			tp_qpush(g_mn.tp, req_recv, (void*)in);
 		}
 	}
+	while (1);
 }

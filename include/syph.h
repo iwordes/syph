@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 11:01:40 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 11:32:57 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@
 ** #define FATAL(A...) lprintf(DBM_F M, time(NULL), __FILE__, __LINE__, ##A)
 */
 
+# define LOG(MSG) sy_log(MSG)
 # define ERROR(MSG) sy_error(MSG, __FILE__, __LINE__)
 # define FATAL(MSG) sy_fatal(MSG, __FILE__, __LINE__)
+
 # define ASSERT(COND) if (!(COND)) FATAL("Assertion failed: " ##COND)
 
 # define TAB_BD(T) ((uint8_t*)(T) + (T)->hd_blk * 4096)
