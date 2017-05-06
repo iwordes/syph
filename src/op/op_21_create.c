@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   21_create.c                                        :+:      :+:    :+:   */
+/*   op_21_create.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 17:00:30 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 22:55:10 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void			op_21_create(int sock)
 	db_wlock();
 	LOG("\e[95m0x21\e[0m Create");
 	if (!sy_read(sock, &req, 34))
+		END(0);
+	if (req.schema_len == 0)
 		END(0);
 	if ((tab = tab_by_label(req.label)) != NULL)
 		END(tab->id);
