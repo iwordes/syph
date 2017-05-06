@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 19:20:22 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 21:47:23 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <strings.h>
 # include <sys/mman.h>
 # include <sys/socket.h>
+# include <sys/stat.h>
 # include <time.h>
 # include <unistd.h>
 
