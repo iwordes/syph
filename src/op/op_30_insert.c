@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 18:07:07 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 19:13:55 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void			op_30_insert(int sock)
 	if ((tab = chk_cost(&req)) == NULL)
 		END(0);
 	LOG("0x30 Inserting...");
-	for (i = 0; i < req.limit; i++)
+	i = ~0;
+	while (++i < req->limit)
 		if (!ins1(tab, &req, sock, i))
 			END(0);
 	END(req.limit);

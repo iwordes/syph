@@ -11,7 +11,7 @@ SRC_TAB  += update.c
 
 SRC      += $(addprefix db/,$(SRC_DB))
 SRC      += $(addprefix init/,$(SRC_INIT))
-SRC      += $(addprefix op/,$(SRC_OP))
+SRC      += $(addprefix op/op_,$(SRC_OP))
 SRC      += $(addprefix sy/,$(SRC_SY))
 SRC      += $(addprefix tab/,$(SRC_TAB))
 SRC      := $(addprefix src/,$(SRC))

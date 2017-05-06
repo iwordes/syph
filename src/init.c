@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:33:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 17:58:30 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 19:15:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_init(int *argc, char ***argv)
 		exit(DBE_LLOCK);
 }
 
-void	init(int *argc, char ***argv)
+void		init(int *argc, char ***argv)
 {
 	init_init(argc, argv);
 	LOG("\e[1mStart.\e[0m");

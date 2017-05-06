@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 17:57:44 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 19:20:22 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@
 # define DBE_O_LOG 11
 # define DBE_LLOCK 12
 
-# define DBE_SACC 20 /* ? socket-accept */
-# define DBE_RECV /* ? socket-recv */
-# define DBE_SEND /* ? socket-send */
+# define DBE_SACC 20
+# define DBE_RECV
+# define DBE_SEND
 
 # define DBE_READ DBE_RECV
 # define DBE_WRITE DBE_SEND
@@ -179,7 +179,6 @@ typedef struct	s_db
 	t_tp_rwl	lock;
 
 	t_db_head	*head;
-
 
 	uint32_t	tlen;
 	uint32_t	tmem;
@@ -348,7 +347,6 @@ void			db_rlock(void);
 void			db_unload(void);
 void			db_unlock(void);
 void			db_wlock(void);
-
 
 /*
 ** =============================================================================

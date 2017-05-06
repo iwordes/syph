@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:15:24 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 16:22:05 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 19:15:06 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool		comp_(t_tab *tab, U8 *ent, t_req31 *req)
 	return (true);
 }
 
-void	tab_match(t_tab *tab, U8 *ent, t_req31 *req)
+void			tab_match(t_tab *tab, U8 *ent, t_req31 *req)
 {
 	if (req->cnt < req->limit && comp_(tab, ent, req))
 		req->cnt += 1;

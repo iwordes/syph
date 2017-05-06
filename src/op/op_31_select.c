@@ -6,7 +6,7 @@
 /*   By: kdavis <kdavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:13:51 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/05 18:14:11 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 19:12:40 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,16 @@
 
 #define END { LOG("\e[91m0x31\e[0m"); db_unlock(); return ; }
 
-void	op_31_select(int sock)
+static void		pls_select(int sock, t_tab *tab, t_req31 *req)
+{
+	tab_foreach(tab, tab_match, req);
+	write(sock, &req->cnt, 4);
+	req->cnt = 0;
+	req->sock = sock;
+	tab_foreach(tab, tab_select, req);
+}
+
+void			op_31_select(int sock)
 {
 	t_tab		*tab;
 	t_req31		req;
@@ -34,11 +43,7 @@ void	op_31_select(int sock)
 	if (!sy_getpair(p, req.cmp_len, req.cmp, &req.cmp_val))
 		END;
 	LOG("0x31 Selecting...");
-	tab_foreach(tab, tab_match, &req);
-	write(sock, &req.cnt, 4);
-	req.cnt = 0;
-	req.sock = sock;
-	tab_foreach(tab, tab_select, &req);
+	pls_select(sock, tab, &req);
 	db_unlock();
 	free(req.cmp_val);
 	lprintf("[%.8s] \e[92m0x31\e[0m %u selected\n", sy_time(), req.cnt);

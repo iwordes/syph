@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 15:07:52 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 18:01:39 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 19:15:27 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool		comp_(t_tab *tab, U8 *ent, t_req33 *req)
 	return (true);
 }
 
-void	tab_delete(t_tab *tab, U8 *ent, t_req33 *req)
+void			tab_delete(t_tab *tab, U8 *ent, t_req33 *req)
 {
 	if (req->cnt < req->limit && comp_(tab, ent, req))
 	{

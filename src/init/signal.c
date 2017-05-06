@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 20:16:44 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 17:58:56 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 19:16:35 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	hook(int sig)
 		ERROR(strsignal(sig));
 }
 
-void	init_signal(void)
+void		init_signal(void)
 {
 	uint8_t	i;
 

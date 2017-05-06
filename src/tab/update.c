@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:29:20 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 16:58:01 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 19:15:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static bool		assign_(t_tab *tab, U8 *ent, t_req32 *req)
 	return (true);
 }
 
-void	tab_update(t_tab *tab, U8 *ent, t_req32 *req)
+void			tab_update(t_tab *tab, U8 *ent, t_req32 *req)
 {
 	if (comp_(tab, ent, req) && assign_(tab, ent, req))
 		req->cnt += 1;
