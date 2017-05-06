@@ -6,7 +6,7 @@
 /*   By: kdavis <kdavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:13:51 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/05 18:05:36 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 18:14:11 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	op_31_select(int sock)
 		END;
 	if (!sy_read(sock, req.field, req.field_len))
 		END;
-	tab = table(req.tid);
+	if ((tab = table(req.tid)) == NULL)
+		END;
 	p.tab = tab;
 	p.sock = sock;
 	if (!sy_getpair(p, req.cmp_len, req.cmp, &req.cmp_val))
