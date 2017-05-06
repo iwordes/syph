@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 15:45:10 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 22:25:10 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 17:50:58 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@
 
 void	op_ff_ping(int sock)
 {
-	sy_log("\e[92m0xff\e[0m Ping");
+	char	c;
 
-	#ifdef __BIG_ENDIAN
-	write(sock, "\xff", 1);
-	#else
-	write(sock, "", 1);
-	#endif
+	sy_log("\e[92m0xff\e[0m Ping");
+	c = EBYTE;
+	write(sock, &c, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 15:53:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 12:15:27 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 17:25:07 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,23 @@ static void	req_recv(void *fd)
 	uint8_t	i;
 
 	i = 0;
-	read((int)fd, &op, 1);
-	while (g_op[i].fn != NULL)
-	{
-		if (g_op[i].op == op)
+	if (read((int)fd, &op, 1) == 1)
+		while (g_op[i].fn != NULL)
 		{
-			g_op[i].fn((int)fd);
-			break ;
+			if (g_op[i].op == op)
+			{
+				g_op[i].fn((int)fd);
+				break ;
+			}
+			i += 1;
 		}
-		i += 1;
-	}
 	close((int)fd);
 }
 
 #define IPB ((U8*)(&sa_inc.sin_addr.s_addr))
+#define CON_MSG "\e[1m%d\e[0m.\e[1m%d\e[0m.\e[1m%d\e[0m.\e[1m%d\e[0m\n"
+#define CON_MSG_OK "[%.8s] \e[1;92m⇩\e[0m " CON_MSG
+#define CON_MSG_KO "[%.8s] \e[1;91m⇩\e[0m " CON_MSG
 
 void		loop(void)
 {
@@ -90,16 +93,14 @@ void		loop(void)
 	socklen_t			l;
 
 	l = sizeof(sa_inc);
-	while (g_mn.sock >= 0)
+	while (1)
 	{
 		if ((in = accept(g_mn.sock, (void*)&sa_inc, &l)) < 0)
-			sy_log("Could not accept connection.");
+			lprintf(CON_MSG_KO, sy_time(), IPB[0], IPB[1], IPB[2], IPB[3]);
 		else
 		{
-			dprintf(g_mn.log, "[%ld] Connection established from %d.%d.%d.%d\n",
-				time(NULL), IPB[0], IPB[1], IPB[2], IPB[3]);
+			lprintf(CON_MSG_OK, sy_time(), IPB[0], IPB[1], IPB[2], IPB[3]);
 			tp_qpush(g_mn.tp, req_recv, (void*)in);
 		}
 	}
-	while (1);
 }

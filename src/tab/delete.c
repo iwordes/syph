@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 15:07:52 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 16:35:00 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 18:01:39 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	tab_delete(t_tab *tab, U8 *ent, t_req33 *req)
 {
 	if (req->cnt < req->limit && comp_(tab, ent, req))
 	{
-		LOG("0x33 Deleting...");
 		bzero(ent, tab->ent_size);
 		req->cnt += 1;
 	}

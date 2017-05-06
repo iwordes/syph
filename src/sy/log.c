@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 20:01:58 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 11:10:00 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 17:23:05 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	sy_log(const char *msg)
 {
-	lprintf("[%lu] %s\n", time(NULL), msg);
+	lprintf("[%.8s] %s\n", sy_time(), msg);
 }

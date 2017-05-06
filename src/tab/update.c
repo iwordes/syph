@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:29:20 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 16:22:11 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 16:58:01 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static bool		assign_(t_tab *tab, U8 *ent, t_req32 *req)
 	{
 		sy_asn(req->asn[i].op)(ASN1, ASN2, val);
 		val += ASIZE;
-		LOG("iok");
 	}
 	return (true);
 }

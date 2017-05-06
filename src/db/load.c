@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 12:32:16 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 19:04:55 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 17:38:47 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static char	*g_emsg[] =
 
 static int	panic(int n)
 {
+	LOG("\e[91mdb_load\e[0m");
 	if (n > 6)
 		pthread_rwlock_destroy(&DB.lock);
 	if (n > 3)
@@ -59,26 +60,18 @@ int			db_load(const char *path)
 {
 	U64		blk;
 
-	dprintf(g_mn.log, "[%ld] Loading %s...\n", time(NULL), path);
+	LOG("\e[95mdb_load\e[0m");
 	DB.name = (char*)path;
 	if (access(path, F_OK) != 0 && db_init(path) != 0)
 		PANIC(1);
 	if ((DB.fd = open(path, O_RDWR | O_EXLOCK)) < 0)
-	{
-		printf("%d: %s\n", errno, strerror(errno));
 		PANIC(2);
-	}
 	if (lseek(DB.fd, 0, SEEK_END) % 4096 > 0)
 		PANIC(3);
 	if ((blk = blocks_(DB.fd)) == 0)
 		PANIC(4);
-
 	if ((DB.map = MAP) == MAP_FAILED)
-	{
-		printf("%d\n", errno);
 		PANIC(5);
-	}
-
 	DBH = (void*)DB.map;
 	if (DBH->ebyte != EBYTE)
 		PANIC(6);
@@ -86,5 +79,6 @@ int			db_load(const char *path)
 		PANIC(7);
 	if (pthread_rwlock_init(&DB.lock, NULL) != 0)
 		PANIC(8);
+	LOG("\e[92mdb_load\e[0m");
 	return (0);
 }

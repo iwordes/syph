@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 15:17:04 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 18:07:07 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 static void		end_(int sock, uint32_t res)
 {
-	if (res == 0)
-		sy_log("\e[91m0x30\e[0m");
+	if (res)
+		lprintf("[%.8s] \e[92m0x30\e[0m %u inserted\n", sy_time(), res);
 	else
-		sy_log("\e[92m0x30\e[0m");
+		LOG("\e[91m0x30\e[0m");
 	write(sock, &res, 4);
 	db_unlock();
 }
@@ -40,14 +40,9 @@ static bool		ins1(t_tab *tab, t_req30 *req, int sock, uint32_t i)
 		if (!sy_read(sock, ENT_FIELD, FIELD_SIZ))
 		{
 			ERROR("Could not read into entry!");
-			lprintf("             errno %d: %s\n", errno, strerror(errno));
-			lprintf("             ent -= %d * %u;\n", i, tab->ent_size);
 			ent -= i * tab->ent_size;
-			lprintf("             bzero(ent, %u);\n", (i + 1) * tab->ent_size);
 			bzero(ent, (i + 1) * tab->ent_size);
-			lprintf("             tab->len -= %d;\n", i);
 			tab->len -= i;
-			LOG("\e[91mins1\e[0m");
 			return (false);
 		}
 	}
@@ -72,10 +67,8 @@ static t_tab	*chk_cost(t_req30 *req)
 	{
 		if (!db_grow(GROW_AT, tab->bd_blk))
 			return (NULL);
-
 		if ((tab = table(req->tid)) == NULL)
 			FATAL("Somehow lost the table just grown!");
-
 		DBH->next_off += tab->bd_blk;
 		tab->bd_blk *= 2;
 	}
@@ -88,19 +81,17 @@ void			op_30_insert(int sock)
 	t_req30		req;
 	uint32_t	i;
 
-	LOG("\e[95m0x30\e[0m Insert");
-
-	sy_read(sock, &req, 9);
-	sy_read(sock, req.field, req.field_len);
-
 	db_wlock();
-
+	LOG("\e[95m0x30\e[0m Insert");
+	if (!sy_read(sock, &req, 9))
+		END(0);
+	if (!sy_read(sock, req.field, req.field_len))
+		END(0);
 	if ((tab = chk_cost(&req)) == NULL)
 		END(0);
-
+	LOG("0x30 Inserting...");
 	for (i = 0; i < req.limit; i++)
 		if (!ins1(tab, &req, sock, i))
-			break ;
-
+			END(0);
 	END(req.limit);
 }

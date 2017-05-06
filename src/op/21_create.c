@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 15:09:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 17:00:30 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,7 @@ static bool		tab__init(int sock, t_tab *tab, t_req21 *req)
 
 static void		end_(int sock, uint32_t res)
 {
-	if (res == 0)
-		sy_log("\e[91m0x21\e[0m");
-	else
-		sy_log("\e[92m0x21\e[0m");
+	LOG((res) ? "\e[92m0x21\e[0m" : "\e[91m0x21\e[0m");
 	write(sock, &res, 4);
 	db_unlock();
 }
@@ -94,28 +91,21 @@ void			op_21_create(int sock)
 	t_tab		*tab;
 	t_req21		req;
 
-	sy_read(sock, &req, 34);
 	db_wlock();
-
-	lprintf("[%ld] \e[95m0x21\e[0m Create \"%s\"\n",
-		time(NULL), (char*)req.label);
-
+	LOG("\e[95m0x21\e[0m Create");
+	if (!sy_read(sock, &req, 34))
+		END(0);
 	if ((tab = tab_by_label(req.label)) != NULL)
 		END(tab->id);
-
 	if (!db_grow(DB_BLK, TAB_BLK))
 		END(0);
-
 	tab = db_blk(DBH->next_off);
-
 	if (!tab__init(sock, tab, &req))
 		END(0);
-
 	TAB_INDEX[DBH->next_id - 1][0] = DBH->next_id;
 	TAB_INDEX[DBH->next_id - 1][1] = DBH->next_off;
 	DBH->next_id += 1;
 	DBH->next_off += TAB_BLK;
 	DBH->tab_cnt += 1;
-
 	end_(sock, tab->id);
 }

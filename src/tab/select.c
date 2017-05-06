@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:23:44 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 15:16:20 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 16:57:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static bool		comp_(t_tab *tab, U8 *ent, t_req31 *req)
 	val = req->cmp_val;
 	while (++i < req->cmp_len)
 	{
-		if ((cmp = sy_cmp(req->cmp[i].id)) == NULL)
+		if ((cmp = sy_cmp(req->cmp[i].op)) == NULL)
 			return (false);
 		if (!cmp(CMP1, CMP2, val))
 			return (false);
@@ -48,10 +48,8 @@ static bool		obtain_(t_tab *tab, U8 *ent, t_req31 *req)
 
 	f = ~0;
 	while (++f < req->field_len)
-	{
 		if (write(req->sock, OBT_LOC, OBT_SIZE) <= 0)
 			return (false);
-	}
 	return (true);
 }
 

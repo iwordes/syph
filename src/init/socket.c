@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:39:20 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/04 18:46:14 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 17:58:59 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	init_socket(void)
 	struct sockaddr_in	sa;
 
 	g_mn.port = 4243;
-	sy_log("Initializing socket...");
-	dprintf(g_mn.log, "             Port: %hd\n", g_mn.port);
+	LOG("\e[1minit_socket\e[0m");
+	dprintf(g_mn.log, "           Port: %hd\n", g_mn.port);
 	g_mn.sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (g_mn.sock < 0)
 		FATAL("Could not open socket!");
