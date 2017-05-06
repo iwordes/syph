@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 14:29:20 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 19:15:14 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 20:26:08 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool		assign_(t_tab *tab, U8 *ent, t_req32 *req)
 	i = ~0;
 	val = req->asn_val;
 	while (++i < req->asn_len)
-		if (sy_asn(req->asn[i].op) == NULL)
+		if (req->asn[i].id == 0 || sy_asn(req->asn[i].op) == NULL)
 			return (false);
 	i = ~0;
 	while (++i < req->asn_len)
