@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 13:53:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 18:51:39 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 18:54:23 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ typedef struct	s_syfield
 
 	uint8_t		flags;
 
-	/*
-	** The user does not need to provided the size field when creating a table.
-	*/
 	uint16_t	size;
 	uint32_t	len;
 }				t_syfield;
@@ -122,7 +119,6 @@ typedef struct	s_sycmp
 	size_t		data_len;
 	void		*data;
 }				t_sycmp;
-
 
 /*
 ** A self-contained array of assignments.

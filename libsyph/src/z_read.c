@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 15:00:32 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/03 16:55:24 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 18:53:45 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ ssize_t		sy__read(int fd, void *mem, ssize_t n)
 	while (i < n && r > 0)
 	{
 		r = read(fd, (char*)mem + i, n - i);
-
 		if (r < 0)
 			return (-1);
-
 		i += r;
 	}
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 14:48:14 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 13:11:10 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 18:57:37 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,11 @@ static uint8_t	g_sytype[][2] =
 
 #define F (tab->schema[i])
 
-bool					sy_create(t_sytab *tab)
+static bool		local_loop(t_sytab *tab)
 {
-	int			sock;
-	int			r;
 	uint32_t	i;
 	uint32_t	f;
 
-	sock = sy__connit(tab->db);
-	write(sock, "\x21", 1);
-	write(sock, tab->label, 33);
-	write(sock, &tab->schema_len, 1);
-	write(sock, tab->schema, tab->schema_len * sizeof(t_syfield));
-	r = sy__read(sock, &tab->id, 4);
-	close(sock);
 	i = ~0;
 	tab->ent_size = 0;
 	while (++i < tab->schema_len)
@@ -59,5 +50,20 @@ bool					sy_create(t_sytab *tab)
 			return (false);
 		tab->ent_size += F.len * F.size;
 	}
-	return (r == 4 && tab->id != 0);
+	return (true);
+}
+
+bool			sy_create(t_sytab *tab)
+{
+	int			sock;
+	int			r;
+
+	sock = sy__connit(tab->db);
+	write(sock, "\x21", 1);
+	write(sock, tab->label, 33);
+	write(sock, &tab->schema_len, 1);
+	write(sock, tab->schema, tab->schema_len * sizeof(t_syfield));
+	r = sy__read(sock, &tab->id, 4);
+	close(sock);
+	return (r == 4 && tab->id != 0 && local_loop(tab));
 }
