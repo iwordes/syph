@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 12:32:16 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 17:38:47 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 21:50:24 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static char	*g_emsg[] =
 
 static int	panic(int n)
 {
-	LOG("\e[91mdb_load\e[0m");
 	if (n > 6)
 		pthread_rwlock_destroy(&DB.lock);
 	if (n > 3)
@@ -37,6 +36,7 @@ static int	panic(int n)
 	if (n > 1)
 		close(DB.fd);
 	ERROR(g_emsg[n - 1]);
+	LOG("\e[91mdb_load\e[0m");
 	return (n);
 }
 
