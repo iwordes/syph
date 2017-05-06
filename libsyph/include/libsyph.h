@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 13:53:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 18:54:23 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/05 19:47:13 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdbool.h>
 # include <arpa/inet.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <string.h>
 
 # define S_ADDR struct sockaddr_in
@@ -42,14 +43,14 @@ typedef struct	s_sypair
 ** A connection path to a SyphDB server.
 **
 ** NOTE: *DO NOT* modify this after sy_connect() has been run.
-**
-** ip:   The four bytes of an IP address, e.g. { 127, 0, 0, 1 }
-** port: The port to connect to. Not endian specific.
+** serv: The server to connect to in the form of "ip:port".
 */
 
 typedef struct	s_syph
 {
-	uint8_t		ip[4];
+	char		*serv;
+
+	uint32_t	ip;
 	uint16_t	port;
 
 	bool		be;

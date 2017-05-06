@@ -30,18 +30,17 @@ User			Users[] =
 	{ ~0, "kyork",   "0282644cb535bd49babdbbbb5100c3c8380e4a00fa24ea2bd0a6a87262d8bdd9" }
 };
 
-int				main()
+int				main(int argc, char **argv)
 {
 	t_syasn	asn;
 	t_sycmp	cmp;
 	t_sysel	sel;
 	t_syph	sy;
 
-	sy.port = 4243;
-	sy.ip[0] = 127;
-	sy.ip[1] = 0;
-	sy.ip[2] = 0;
-	sy.ip[3] = 1;
+	if (argc != 2)
+		return (0);
+
+	sy.serv = argv[1];
 	if (!sy_connect(&sy))
 		return (1);
 
@@ -49,7 +48,6 @@ int				main()
 	if (!sy_create(&tab_user))
 		return (2);
 
-	printf("ent_size: %u\n", tab_user.ent_size);
 	printf("Insert:\n");
 	for (int i = 0; i < 3; i++)
 		printf("~0\t'%-8s'\t'%-s'\n", Users[i].name, Users[i].pass);
