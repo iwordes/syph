@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 19:25:31 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/08 17:06:35 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ static bool		ins1(t_tab *tab, t_req30 *req, int sock, uint32_t i)
 		if (!sy_read(sock, ENT_FIELD, FIELD_SIZ))
 		{
 			ERROR("Could not read into entry!");
+			lprintf("[%.8s] i: %hhu\n", sy_time(), i);
 			ent -= i * tab->ent_size;
 			bzero(ent, (i + 1) * tab->ent_size);
 			tab->len -= i;
+			lprintf("[%.8s] Wipe OK\n", sy_time());
 			return (false);
 		}
 	}
@@ -51,8 +53,8 @@ static bool		ins1(t_tab *tab, t_req30 *req, int sock, uint32_t i)
 	return (true);
 }
 
-#define NEED_BLK ((tab->len + 1 + req->limit) * tab->ent_size)
-#define HAVE_BLK (tab->bd_blk * 4096)
+#define NEED ((tab->len + 1 + req->limit) * tab->ent_size)
+#define HAVE (blk * 4096)
 
 #define OFF_BLK (((void*)tab - (void*)DBH) / 4096)
 #define GROW_AT OFF_BLK + tab->hd_blk + tab->bd_blk
@@ -60,17 +62,23 @@ static bool		ins1(t_tab *tab, t_req30 *req, int sock, uint32_t i)
 static t_tab	*chk_cost(t_req30 *req)
 {
 	t_tab		*tab;
+	uint32_t	blk;
 
 	if ((tab = table(req->tid)) == NULL)
 		return (NULL);
-	if (NEED_BLK > HAVE_BLK)
+	blk = tab->bd_blk;
+	lprintf("[%.8s] chk_cost: NEED %u, HAVE %u\n",
+		sy_time(), NEED / 4096, HAVE / 4096);
+	if (HAVE < NEED)
 	{
-		if (!db_grow(GROW_AT, tab->bd_blk))
+		while (HAVE < NEED)
+			blk *= 2;
+		if (!db_grow(GROW_AT, blk - tab->bd_blk))
 			return (NULL);
 		if ((tab = table(req->tid)) == NULL)
 			FATAL("Somehow lost the table just grown!");
-		DBH->next_off += tab->bd_blk;
-		tab->bd_blk *= 2;
+		DBH->next_off += blk - tab->bd_blk;
+		tab->bd_blk = blk;
 	}
 	return (tab);
 }

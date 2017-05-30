@@ -30,7 +30,7 @@ re: fclean all
 LIBS := $(addsuffix .a,$(LIB))
 
 $(NAME): $(SRC) lib/tp/libtp.a
-	$(CC) $(CF) -o $@ $(SRC)
+	$(CC) $(CF) -g -o $@ $(SRC)
 
 %.a:
 	make -C $(@D)

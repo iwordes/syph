@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 10:57:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 19:17:51 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/08 17:09:09 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ bool		db_grow(uint32_t at, uint32_t skip)
 	int		tmp;
 
 	sy_log("\e[95mdb_grow\e[0m");
+	// lprintf("[%.8s] \e[95mdb_grow\e[0m(%u, %u)\n", sy_time(), at, skip);
 	backup_(DB.name);
 	if ((tmp = open(DB.name, O_RDWR | O_CREAT | O_EXCL | O_EXLOCK, 0600)) < 0)
 		return (restore_(tmp));
