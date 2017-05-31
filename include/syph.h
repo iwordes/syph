@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 22:36:51 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/05/30 16:11:37 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,19 @@
 # define U16 uint16_t
 # define U32 uint32_t
 # define U64 uint64_t
+
+typedef float		f32_t;
+typedef double		f64_t;
+
+typedef int8_t		i8_t;
+typedef int16_t		i16_t;
+typedef int32_t		i32_t;
+typedef int64_t		i64_t;
+
+typedef uint8_t		u8_t;
+typedef uint16_t	u16_t;
+typedef uint32_t	u32_t;
+typedef uint64_t	u64_t;
 
 /*
 ** =============================================================================
