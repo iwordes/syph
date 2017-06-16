@@ -1,3 +1,4 @@
 syphd
 test
 **/a.out
+*.dSYM
