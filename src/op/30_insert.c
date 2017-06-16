@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_30_insert.c                                     :+:      :+:    :+:   */
+/*   30_insert.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/08 17:06:35 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/16 10:23:44 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ static t_tab	*chk_cost(t_req30 *req)
 	if ((tab = table(req->tid)) == NULL)
 		return (NULL);
 	blk = tab->bd_blk;
-	lprintf("[%.8s] chk_cost: NEED %u, HAVE %u\n",
-		sy_time(), NEED / 4096, HAVE / 4096);
 	if (HAVE < NEED)
 	{
 		while (HAVE < NEED)

@@ -71,8 +71,11 @@ int				main(int argc, char **argv)
 	bzero(&asn, sizeof(asn));
 	bzero(&cmp, sizeof(cmp));
 
-	cmp.len = 0;
-	cmp.data_len = 0;
+	cmp.len = 1;
+	cmp.data_len = 11;
+	cmp.data = "kdavis\0\0\0\0\0";
+	cmp.cmp[0].op = SYC_GEQ;
+	cmp.cmp[0].id = 1;
 
 	asn.len = 1;
 	asn.data_len = 11;
@@ -89,7 +92,10 @@ int				main(int argc, char **argv)
 	for (int i = 0; i < 3; i++)
 		printf("%.2d\t'%-8s'\t'%-s'\n", Users[i].id, Users[i].name, Users[i].pass);
 
-	if (!sy_delete(&tab_user, &cmp, 3))
+	cmp.len = 0;
+	cmp.data_len = 0;
+
+	if (!sy_delete(&tab_user, &cmp, ~0))
 		return (6);
 
 	return (0);

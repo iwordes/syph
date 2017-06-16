@@ -6,13 +6,13 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 15:53:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 19:14:38 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/16 10:21:51 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <syph.h>
 
-t_op		g_op[] =
+t_op		g_op[8] =
 {
 	{ 0x21, op_21_create },
 
@@ -26,14 +26,19 @@ t_op		g_op[] =
 	{ 0x00, NULL }
 };
 
-t_cmp		g_cmp[] =
+t_cmp		g_cmp[7] =
 {
 	{ 0x40, op_40_equ },
 	{ 0x41, op_41_neq },
+	{ 0x42, op_42_lt },
+	{ 0x43, op_43_gt },
+	{ 0x44, op_44_leq },
+	{ 0x45, op_45_geq },
+
 	{ 0x00, NULL }
 };
 
-t_asn		g_asn[] =
+t_asn		g_asn[2] =
 {
 	{ 0x50, op_50_set },
 	{ 0x00, NULL }

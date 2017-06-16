@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/30 16:11:37 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/16 10:21:35 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,7 +345,7 @@ t_main			g_mn;
 
 t_op			g_op[8];
 t_asn			g_asn[2];
-t_cmp			g_cmp[3];
+t_cmp			g_cmp[7];
 
 /*
 ** =============================================================================
@@ -377,6 +377,10 @@ void			op_33_delete(int sock);
 
 bool			op_40_equ(t_field *meta, U8 *lhs, U8 *rhs);
 bool			op_41_neq(t_field *meta, U8 *lhs, U8 *rhs);
+bool			op_42_lt(t_field *meta, U8 *lhs, U8 *rhs);
+bool			op_43_gt(t_field *meta, U8 *lhs, U8 *rhs);
+bool			op_44_leq(t_field *meta, U8 *lhs, U8 *rhs);
+bool			op_45_geq(t_field *meta, U8 *lhs, U8 *rhs);
 
 void			op_50_set(t_field *meta, U8 *lhs, U8 *rhs);
 

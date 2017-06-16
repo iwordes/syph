@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 13:53:01 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 19:47:13 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/16 10:09:18 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,10 @@ typedef struct	s_sysel
 
 # define SYC_EQU 0x40
 # define SYC_NEQ 0x41
+# define SYC_LTH 0x42
+# define SYC_GTH 0x43
+# define SYC_LEQ 0x44
+# define SYC_GEQ 0x45
 
 /*
 ** =============================================================================
