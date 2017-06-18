@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 12:32:16 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 21:50:24 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/18 12:15:45 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static U64	blocks_(int fd)
 	uint8_t		be;
 
 	lseek(fd, 0, SEEK_SET);
-	if (read(fd, &be, 1) <= 0 || be != EBYTE)
+	if (!sy_read(fd, &be, 1) || be != EBYTE)
 		return (0);
 	lseek(fd, 2, SEEK_SET);
 	if (!sy_read(fd, &hd, 2) || !sy_read(fd, &bd, 4))

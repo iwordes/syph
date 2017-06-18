@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 15:53:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/16 10:21:51 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/18 12:24:34 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	req_recv(void *fd)
 	uint8_t	i;
 
 	i = 0;
-	if (read((int)fd, &op, 1) == 1)
+	if (sy_read((int)fd, &op, 1) == 1)
 		while (g_op[i].fn != NULL)
 		{
 			if (g_op[i].op == op)
@@ -73,11 +73,14 @@ void		loop(void)
 	struct sockaddr_in	sa_inc;
 	ssize_t				in;
 	socklen_t			l;
+	uint64_t			b;
 
+	b = ~0UL;
 	l = sizeof(sa_inc);
 	while (1)
 	{
-		if ((in = accept(g_mn.sock, (void*)&sa_inc, &l)) < 0)
+		if ((in = accept(g_mn.sock, (void*)&sa_inc, &l)) < 0
+			|| ioctl(in, FIONBIO, &b) < 0)
 			lprintf(CON_MSG_KO, sy_time(), IPB[0], IPB[1], IPB[2], IPB[3]);
 		else
 		{

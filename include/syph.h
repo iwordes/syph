@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:45:45 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/16 10:21:35 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/18 12:13:43 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <signal.h>
 # include <stdio.h>
 # include <strings.h>
+# include <sys/ioctl.h>
 # include <sys/mman.h>
 # include <sys/socket.h>
 # include <sys/stat.h>
