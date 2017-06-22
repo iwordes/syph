@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/22 10:57:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/08 17:09:09 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:47:28 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,17 @@ static void	cleanup_(void)
 	if (close(DB.fd) < 0)
 		ERROR("Could not close old DB!");
 }
+
+/*
+** 1. Back up the database to a new file. (whatever.db -> whatever.db~)
+** 2. Attempt to open the new database. (whatever.db)
+** 3. Attempt to write the database header to the new file.
+** 4. Attempt to write all blocks until the one to expand at.
+** 5. Attempt to add N empty blocks to the location requested.
+** 6. Attempt to write the remaining blocks to the new file.
+** 7. Attempt to map the new file into memory.
+** 8. Clean up.
+*/
 
 bool		db_grow(uint32_t at, uint32_t skip)
 {
