@@ -6,7 +6,7 @@
 /*   By: kdavis <kdavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/29 12:13:51 by kdavis            #+#    #+#             */
-/*   Updated: 2017/05/05 19:12:40 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:38:54 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ static void		pls_select(int sock, t_tab *tab, t_req31 *req)
 	req->sock = sock;
 	tab_foreach(tab, tab_select, req);
 }
+
+/*
+** 1. Lock the database for reading.
+** 2. Attempt to read all necessary information from our socket.
+** 3. If the client requests an invalid table, fail.
+** 4. Get the comparisons the client wishes to use to limit results.
+** 5. Select all matching entries, returning the count, then their data as req.
+** 6. Unlock the database.
+** 7. Free the memory used for matching comparisons.
+*/
 
 void			op_31_select(int sock)
 {

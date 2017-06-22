@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 15:53:28 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/18 12:24:34 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:25:48 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ static void	req_recv(void *fd)
 #define CON_MSG "\e[1m%d\e[0m.\e[1m%d\e[0m.\e[1m%d\e[0m.\e[1m%d\e[0m\n"
 #define CON_MSG_OK "[%.8s] \e[1;92m⇩\e[0m " CON_MSG
 #define CON_MSG_KO "[%.8s] \e[1;91m⇩\e[0m " CON_MSG
+
+/*
+** 1. Accept an incoming connection.
+** 2. Set the new communications socket to be non-blocking.
+** 3. If either of the above fail, drop the connection.
+** 4. Push a handler for this connection onto the job queue.
+*/
 
 void		loop(void)
 {

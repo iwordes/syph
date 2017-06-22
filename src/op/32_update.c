@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/30 15:38:54 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 18:05:29 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:41:05 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 
 #define E1 { LOG("\e[91m0x32\e[0m"); db_unlock(); return ; }
 #define E2 { LOG("\e[91m0x32\e[0m"); db_unlock(); free(req.cmp_val); return ; }
+
+/*
+** 1. Lock the database for writing.
+** 2. Attempt to read 6 bytes from the socket.
+** 3. If the client requests an invalid table, fail.
+** 4. Get all comparisons and assignments to use for this request.
+** 5. Update each valid entry.
+** 6. Unlock the database.
+** 7. Return the number of entries updated.
+** 8. Free allocated memory.
+*/
 
 void	op_32_update(int sock)
 {

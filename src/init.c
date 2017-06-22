@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 10:33:31 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 21:47:03 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:21:48 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ static void	init_init(int *argc, char ***argv)
 	if (pthread_mutex_init(&g_mn.llock, NULL))
 		exit(DBE_LLOCK);
 }
+
+/*
+** 1. Change directory and initate logging.
+** 2. Load the database.
+** 3. Create the thread pool.
+** 4. Create the socket to listen on.
+** 5. Handle signals.
+*/
 
 void		init(int *argc, char ***argv)
 {

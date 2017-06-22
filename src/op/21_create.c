@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_21_create.c                                     :+:      :+:    :+:   */
+/*   21_create.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/19 19:09:36 by iwordes           #+#    #+#             */
-/*   Updated: 2017/05/05 22:55:10 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:33:03 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,19 @@ static void		end_(int sock, uint32_t res)
 #define END(R) { end_(sock, R); return ; }
 
 #define TAB_INDEX ((U32(*)[2])(DBH + 1))
+
+/*
+** 0x21
+** 1. Lock the database for writing.
+** 2. Attempt to read 34 bytes into our struct.
+** 3. Fail if we've been given a zero-length schema.
+** 4. If we already have a table with this label, return its ID.
+** 5. Attempt to grow our database to fit a new table.
+** 6. Get the block at the head of our new table.
+** 7. Initialize the new table.
+** 8. Create a new entry in our table index for this new table.
+** 9. Cleanup, and unlock the database.
+*/
 
 void			op_21_create(int sock)
 {

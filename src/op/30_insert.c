@@ -6,7 +6,7 @@
 /*   By: iwordes <iwordes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/27 16:44:11 by iwordes           #+#    #+#             */
-/*   Updated: 2017/06/16 10:23:44 by iwordes          ###   ########.fr       */
+/*   Updated: 2017/06/22 11:36:14 by iwordes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,15 @@ static t_tab	*chk_cost(t_req30 *req)
 	}
 	return (tab);
 }
+
+/*
+** 1. Lock the database for writing.
+** 2. Attempt to read all necessary information from our socket.
+** 3. Get the table to insert into, and grow it if necessary.
+** 4. Copy each new entry into the table.
+** 5. If the above fails, wipe all new entries from the table if possible.
+** 6. Return the number of entries inserted successfully and unlock the DB.
+*/
 
 void			op_30_insert(int sock)
 {
